@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --shell-x: clamp(1.25rem, 5vw, 4rem);
+    --rule: rgba(138, 106, 74, 0.22);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky Header + Wegpunktmarke */
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv05';
+  }
+
+  ::selection {
+    background: #14405f;
+    color: #fbfcfd;
+  }
+
+  :focus-visible {
+    outline: 2px solid #14405f;
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-normal text-balance;
+  }
+
+  /* Zahlen tabellarisch setzen – Preise sollen untereinander stehen. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: var(--shell-x);
+  }
+
+  /* Eyebrow / Wegpunktbeschriftung */
+  .eyebrow {
+    @apply font-mono text-eyebrow uppercase text-ink-muted;
+  }
+
+  .rule {
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Feines Koordinatenraster als Hintergrund – ersetzt dekorative Verläufe. */
+  .grid-field {
+    background-image:
+      linear-gradient(to right, rgba(138, 106, 74, 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(138, 106, 74, 0.09) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .grid-field-dark {
+    background-image:
+      linear-gradient(to right, rgba(143, 201, 238, 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(143, 201, 238, 0.09) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-card px-6 py-3.5 text-sm font-medium
+      transition-[background-color,color,border-color,transform] duration-200 ease-course;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-deep text-paper hover:bg-ink;
+  }
+
+  .btn-secondary {
+    @apply btn border border-ink/20 bg-transparent text-ink hover:border-ink/60 hover:bg-ink/[0.03];
+  }
+
+  .btn-ghost-light {
+    @apply btn border border-paper/25 text-paper hover:border-paper/70 hover:bg-paper/10;
+  }
+
+  .field {
+    @apply w-full rounded-card border border-ink/15 bg-white px-4 py-3 text-[0.95rem] text-ink
+      placeholder:text-ink-muted/60 transition-colors focus:border-brand-deep focus:outline-none
+      focus-visible:outline-none;
+  }
+
+  .field-label {
+    @apply mb-2 block font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-muted;
+  }
+
+  /* Auswahlkarte im Kursfinder und Radar */
+  .choice {
+    @apply relative flex w-full flex-col items-start gap-1 rounded-card border border-ink/12 bg-white
+      px-4 py-3.5 text-left transition-all duration-200 ease-course hover:border-brand hover:bg-brand-mist/40;
+  }
+
+  .choice-active {
+    @apply border-brand-deep bg-brand-mist ring-1 ring-brand-deep;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Kurslinie: wird beim Sichtbarwerden gezeichnet. */
+  .course-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawCourse 2.2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
+
+  @keyframes drawCourse {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .course-draw {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .print-block {
+    break-inside: avoid;
+  }
+}
