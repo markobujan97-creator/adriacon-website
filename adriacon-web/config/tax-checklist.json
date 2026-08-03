@@ -1,0 +1,62 @@
+{
+  "title": "Checkliste Steuererklärung",
+  "intro": "Diese Übersicht hilft Ihnen, die Unterlagen für Ihre Steuererklärung zusammenzustellen. Sie ist eine allgemeine Orientierung – je nach persönlicher Situation können weitere Unterlagen erforderlich sein.",
+  "note": "Je nach persönlicher Situation können weitere Unterlagen erforderlich sein. Diese Checkliste ist keine rechtliche oder steuerliche Beratung.",
+  "groups": [
+    {
+      "title": "Persönliche Angaben",
+      "items": [
+        "Name und Adresse",
+        "Geburtsdatum",
+        "Zivilstand",
+        "Konfession, falls steuerlich relevant",
+        "Wohnort beziehungsweise Gemeinde",
+        "Angaben zu Kindern",
+        "Angaben zu unterstützten Personen"
+      ]
+    },
+    {
+      "title": "Einkommen",
+      "items": [
+        "Lohnausweise",
+        "Rentenbescheinigungen",
+        "Taggeldabrechnungen",
+        "Arbeitslosenentschädigung",
+        "Nebeneinkünfte",
+        "Einkünfte aus selbstständiger Tätigkeit"
+      ]
+    },
+    {
+      "title": "Vermögen",
+      "items": [
+        "Bank- und Zinsauszüge per 31. Dezember",
+        "Wertschriftenverzeichnisse",
+        "Kryptowährungen, falls vorhanden",
+        "Angaben zu Immobilien",
+        "Fahrzeuge, nur falls relevant"
+      ]
+    },
+    {
+      "title": "Abzüge",
+      "items": [
+        "Krankheitskosten",
+        "Weiterbildungskosten",
+        "Berufsauslagen",
+        "Einzahlungen Säule 3a",
+        "Pensionskasseneinkäufe",
+        "Spenden",
+        "Schuldzinsen",
+        "Kinderbetreuungskosten",
+        "Versicherungsnachweise"
+      ]
+    },
+    {
+      "title": "Weitere Unterlagen",
+      "items": [
+        "Letzte Steuererklärung",
+        "Letzte definitive Veranlagung",
+        "Belege zu Veränderungen im betreffenden Steuerjahr"
+      ]
+    }
+  ]
+}
