@@ -14,7 +14,7 @@ export const site = {
   phone: '+41 76 541 40 08',
   phoneHref: 'tel:+41765414008',
   mapsUrl:
-    'https://www.google.com/maps/search/?api=1&query=T%C3%A4fernstrasse+4%2C+5405+Baden-D%C3%A4ttwil',
+    'https://www.google.com/maps/search/?api=1&query=Adriacon+Treuhand+GmbH%2C+T%C3%A4fernstrasse+4%2C+5405+Baden-D%C3%A4ttwil',
   hours: [
     { days: 'Montag bis Freitag', time: '08:00 – 17:00' },
     { days: 'Samstag und Sonntag', time: 'nach Vereinbarung' },
@@ -24,25 +24,46 @@ export const site = {
     instagram: 'https://www.instagram.com/adriacon_treuhand/',
   },
   /**
-   * Standortkoordinaten – werden als feines typografisches Markendetail eingesetzt.
-   * TODO (Adriacon): Exakte Koordinaten des Büros bestätigen.
+   * Standortkoordinaten des Büros, übernommen aus dem Google-Maps-Eintrag der
+   * Adriacon Treuhand GmbH. Dienen als feines typografisches Markendetail und
+   * als Geo-Angabe in den strukturierten Daten.
    */
-  coordinates: '47.4658° N · 8.2624° O',
+  coordinates: '47.4487° N · 8.2927° O',
+  geo: { lat: 47.4487302, lng: 8.2927201 },
 } as const;
 
 /**
- * MySteuerhelfer – von Adriacon selbst entwickelte App.
+ * MySteuerhelfer – die von Adriacon selbst entwickelte App zur digitalen
+ * Einreichung der Steuerunterlagen. Verfügbar als iOS-App und als Webversion.
  *
- * TODO (Adriacon): Echten App-Store-Link eintragen, sobald die App
- * veröffentlicht ist. Solange der Wert null ist, wird der Button deaktiviert
- * dargestellt und verweist nirgendwohin.
+ * TODO (Adriacon): Der gelieferte App-Store-Link zeigt auf die australische
+ * Storefront (/au/). Für Schweizer Besucherinnen und Besucher ist in der Regel
+ * https://apps.apple.com/ch/app/mysteuerhelfer/id6758463921 die richtige
+ * Adresse. Bitte prüfen und bei Bedarf hier auf /ch/ umstellen.
  */
 export const mySteuerhelfer = {
-  appStoreUrl: null as string | null,
-  /** Optional: URL der Webversion, falls vorhanden. */
-  webAppUrl: null as string | null,
-  platforms: 'Verfügbar für iOS.',
+  appStoreUrl: 'https://apps.apple.com/au/app/mysteuerhelfer/id6758463921',
+  webAppUrl: 'https://steuererklarungs-helfer-0819f95c.base44.app/',
+  platforms: 'Als App für iOS und als Webversion im Browser.',
 } as const;
+
+/**
+ * Einzugsgebiet. Der Schwerpunkt liegt im Aargau und in Zürich, digital
+ * betreuen wir Mandate in der ganzen Schweiz. Die Liste beschreibt das
+ * Betreuungsgebiet – es gibt nur einen Standort, in Baden-Dättwil.
+ */
+export const regions = [
+  'Baden',
+  'Baden-Dättwil',
+  'Wettingen',
+  'Brugg',
+  'Aarau',
+  'Lenzburg',
+  'Zürich',
+  'Dietikon',
+  'Schlieren',
+  'Zug',
+] as const;
 
 /** Hauptnavigation – echte Seiten, keine Sprungmarken. */
 export const navigation = [

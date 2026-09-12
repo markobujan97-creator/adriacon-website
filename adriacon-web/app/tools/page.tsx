@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { breadcrumbSchema, metadataFor, seo } from '@/config/seo';
 import Link from 'next/link';
 import { ArrowRight, Building2, User } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
@@ -8,20 +9,15 @@ import { TaxOffers } from '@/components/tools/TaxOffers';
 import { Jahreskurs } from '@/components/tools/Jahreskurs';
 import { MySteuerhelfer } from '@/components/tools/MySteuerhelfer';
 
-export const metadata: Metadata = {
-  title: 'Tools – Paketfinder, Steuererklärungen, Jahreskurs',
-  description:
-    'Werkzeuge der Adriacon Treuhand: Paketfinder für Unternehmen, Preise für private Steuererklärungen, der Jahreskurs und die App MySteuerhelfer.',
-  alternates: { canonical: '/tools' },
-};
+export const metadata: Metadata = metadataFor('tools');
 
 export default function ToolsPage() {
   return (
     <>
       <PageHeader
         label="Tools"
-        title="Werkzeuge, die schon vor dem ersten Gespräch helfen."
-        lead="Alle Berechnungen laufen in Ihrem Browser. Keine Anmeldung, keine Datenübermittlung, keine Verpflichtung."
+        title={seo.tools.h1}
+        lead="Werkzeuge, die schon vor dem ersten Gespräch helfen. Alle Berechnungen laufen in Ihrem Browser – keine Anmeldung, keine Datenübermittlung, keine Verpflichtung."
       />
 
       {/* Wegweiser: Unternehmen oder Privatperson */}
@@ -147,6 +143,11 @@ export default function ToolsPage() {
       </section>
 
       <CtaBand />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema('tools')) }}
+      />
     </>
   );
 }

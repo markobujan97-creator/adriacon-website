@@ -1,0 +1,43 @@
+# Abhängigkeiten
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+
+# Build-Ausgaben
+/.next/
+/out/
+/build
+*.tsbuildinfo
+
+# Vercel
+.vercel
+
+# Umgebungsvariablen (niemals einchecken)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Testabdeckung
+/coverage
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo

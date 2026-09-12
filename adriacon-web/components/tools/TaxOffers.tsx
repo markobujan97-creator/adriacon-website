@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { taxOffers, taxPriceNote } from '@/config/pricing';
+import { taxOffers, taxPriceNote, vatNote } from '@/config/pricing';
+import { mySteuerhelfer } from '@/config/site';
 import { formatChf } from '@/lib/format';
 
 /** Die vier Pauschalpreise für private Steuererklärungen. */
@@ -34,19 +34,25 @@ export function TaxOffers({ showCta = true }: { showCta?: boolean }) {
             </div>
 
             {showCta && (
-              <Link
-                href="/kontakt"
+              /* Führt direkt in die Webversion von MySteuerhelfer */
+              <a
+                href={mySteuerhelfer.webAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-auto flex items-center gap-1.5 pt-5 text-[0.9rem] text-blue hover:text-blue-deep"
               >
                 Unterlagen einreichen
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
+              </a>
             )}
           </li>
         ))}
       </ul>
 
-      <p className="mt-6 max-w-3xl text-[0.85rem] leading-relaxed text-ink-light">{taxPriceNote}</p>
+      <div className="mt-6 max-w-3xl space-y-2">
+        <p className="text-[0.85rem] leading-relaxed text-ink-light">{taxPriceNote}</p>
+        <p className="text-[0.85rem] leading-relaxed text-ink-light">{vatNote}</p>
+      </div>
     </div>
   );
 }

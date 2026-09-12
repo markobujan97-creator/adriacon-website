@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { site } from '@/config/site';
+import { seo } from '@/config/seo';
 
 /**
  * Typografie
@@ -26,44 +27,44 @@ const sans = Hanken_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: 'Adriacon Treuhand GmbH – Treuhand und Buchhaltung in Baden-Dättwil',
+    // Titel der bestehenden Startseite, bewusst unverändert übernommen
+    default: seo.home.title,
     template: '%s | Adriacon Treuhand',
   },
-  description:
-    'Treuhand für KMU, Start-ups und Privatpersonen im Raum Aargau und Zürich. Buchhaltung, MWST, Lohnwesen, Jahresabschluss und Steuern – persönlich, digital und mit klaren Paketpreisen ab CHF 320.– pro Monat.',
-  keywords: [
-    'Treuhand Baden',
-    'Treuhand Baden-Dättwil',
-    'Treuhand Aargau',
-    'Buchhaltung Aargau',
-    'Steuererklärung Aargau',
-    'Treuhand für KMU',
-    'digitale Buchhaltung Schweiz',
-    'Firmengründung Aargau',
-    'Lohnbuchhaltung Aargau',
-    'Treuhand Zürich',
-  ],
+  description: seo.home.description,
+  keywords: seo.home.keywords,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'de_CH',
     url: site.url,
     siteName: site.name,
-    title: 'Adriacon Treuhand GmbH – Stufe für Stufe auf Kurs.',
-    description:
-      'Treuhand, Buchhaltung und Steuern für KMU, Start-ups und Privatpersonen im Raum Aargau und Zürich.',
+    title: seo.home.title,
+    description: seo.home.description,
     images: [
       {
-        url: '/images/treppe-hero.jpg',
-        width: 2000,
-        height: 1125,
+        url: '/brand/adriacon-logo-vertikal.png',
+        width: 1563,
+        height: 1563,
         alt: 'Adriacon Treuhand GmbH',
       },
     ],
   },
-  twitter: { card: 'summary_large_image' },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: 'summary_large_image',
+    title: seo.home.title,
+    description: seo.home.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
   icons: { icon: '/brand/adriacon-signet.png' },
+  category: 'Treuhand',
 };
 
 export const viewport: Viewport = {
@@ -84,6 +85,12 @@ const organisationSchema = {
   image: `${site.url}/brand/adriacon-logo-vertikal.png`,
   logo: `${site.url}/brand/adriacon-logo-vertikal.png`,
   priceRange: 'CHF',
+  description: seo.home.description,
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.lat,
+    longitude: site.geo.lng,
+  },
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
@@ -106,6 +113,32 @@ const organisationSchema = {
     },
   ],
   sameAs: [site.social.linkedin, site.social.instagram],
+  knowsAbout: [
+    'Treuhand',
+    'Finanzbuchhaltung',
+    'Jahresabschluss',
+    'Steuererklärung',
+    'Mehrwertsteuer',
+    'Lohnwesen',
+    'Personaladministration',
+    'Firmengründung',
+    'Unternehmensberatung',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Treuhand-Dienstleistungen',
+    itemListElement: [
+      'Finanzbuchhaltung & Abschlüsse',
+      'Steuererklärungen für Privatpersonen und Unternehmen',
+      'Lohnwesen & Personaladministration',
+      'Firmengründung & Start-up-Begleitung',
+      'Mehrwertsteuer (MWST)',
+      'Unternehmensberatung',
+    ].map((name) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name },
+    })),
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

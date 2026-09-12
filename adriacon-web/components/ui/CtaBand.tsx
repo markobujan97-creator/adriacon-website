@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { StepLine } from './StepLine';
+import { RopeLine } from './RopeLine';
 import { site } from '@/config/site';
 
 /** Abschluss-CTA. Wird auf mehreren Seiten wiederverwendet. */
@@ -12,11 +12,8 @@ export function CtaBand({
 }) {
   return (
     <section className="relative overflow-hidden bg-navy text-white">
-      <StepLine
-        tone="dark"
-        className="pointer-events-none absolute bottom-0 right-0 h-40 w-1/2 opacity-40"
-      />
-      <div className="shell relative py-block">
+      <RopeLine tone="dark" className="absolute inset-x-0 bottom-0 opacity-55" knotWidth={230} />
+      <div className="shell relative pb-40 pt-block">
         <div className="max-w-xl">
           <h2 className="text-d2 !text-white">{title}</h2>
           <p className="mt-5 text-[1.05rem] leading-relaxed text-sky-light">{text}</p>

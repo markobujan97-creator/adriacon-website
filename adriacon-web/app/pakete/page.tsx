@@ -1,35 +1,32 @@
 import type { Metadata } from 'next';
+import { breadcrumbSchema, metadataFor, seo } from '@/config/seo';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { PackageGrid } from '@/components/packages/PackageGrid';
 import { CtaBand } from '@/components/ui/CtaBand';
-import { priceDisclaimer, pricingConfig } from '@/config/pricing';
+import { priceDisclaimer, pricingConfig, vatNote } from '@/config/pricing';
 import { formatChf } from '@/lib/format';
 
-export const metadata: Metadata = {
-  title: 'Pakete und Preise',
-  description:
-    'Fünf klare Treuhandpakete ab CHF 320.– pro Monat: START, KMU, KMU PLUS, CFO und Firmengründung. Alle Preise exklusive MWST.',
-  alternates: { canonical: '/pakete' },
-};
+export const metadata: Metadata = metadataFor('pakete');
 
 export default function PaketePage() {
   return (
     <>
       <PageHeader
         label="Pakete"
-        title="Fünf Pakete, ein klarer Preis."
-        lead="Wählen Sie das Paket, das zu Ihrer Grösse passt. Die Details sehen Sie mit einem Klick – nicht alles auf einmal."
+        title={seo.pakete.h1}
+        lead="Fünf Pakete für Einzelfirmen, KMU und Gründungen. Wählen Sie, was zu Ihrer Grösse passt – die Details sehen Sie mit einem Klick, nicht alles auf einmal."
       />
 
       <section className="py-block">
         <div className="shell">
           <PackageGrid />
 
-          <p className="mt-8 max-w-2xl text-[0.85rem] leading-relaxed text-ink-light">
-            {priceDisclaimer}
-          </p>
+          <div className="mt-8 max-w-2xl space-y-2">
+            <p className="text-[0.85rem] leading-relaxed text-ink-light">{priceDisclaimer}</p>
+            <p className="text-[0.85rem] leading-relaxed text-ink-light">{vatNote}</p>
+          </div>
         </div>
       </section>
 
@@ -83,6 +80,11 @@ export default function PaketePage() {
       </section>
 
       <CtaBand />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema('pakete')) }}
+      />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { breadcrumbSchema, metadataFor, seo } from '@/config/seo';
 import Image from 'next/image';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { CtaBand } from '@/components/ui/CtaBand';
@@ -7,20 +8,15 @@ import { Coordinates } from '@/components/ui/Coordinates';
 import { steps, team, values } from '@/config/content';
 import { site } from '@/config/site';
 
-export const metadata: Metadata = {
-  title: 'Über uns – Leon Šoprek und Marko Bujan',
-  description:
-    'Adriacon Treuhand GmbH in Baden-Dättwil: ein junges Treuhandunternehmen mit zwei Geschäftsführern, persönlicher Betreuung und digitalen Prozessen.',
-  alternates: { canonical: '/ueber-uns' },
-};
+export const metadata: Metadata = metadataFor('ueberUns');
 
 export default function UeberUnsPage() {
   return (
     <>
       <PageHeader
         label="Über uns"
-        title="Treuhand von Menschen, die man auch erreicht."
-        lead="Adriacon Treuhand ist ein junges Treuhandunternehmen mit Sitz in Baden-Dättwil. Wir haben es gegründet, weil wir Treuhand anders erleben wollten."
+        title={seo.ueberUns.h1}
+        lead="Persönlich. Digital. Präzise. Wir sind ein junges Treuhandunternehmen mit Sitz in Baden-Dättwil und denken Treuhandleistungen neu – effizient, verständlich und individuell auf unsere Kundinnen und Kunden abgestimmt."
       />
 
       {/* Haltung mit Treppenbild */}
@@ -223,6 +219,11 @@ export default function UeberUnsPage() {
       <CtaBand
         title="Lernen wir uns kennen."
         text="Erzählen Sie uns von Ihrem Unternehmen. Wir sagen Ihnen ehrlich, wie wir Sie entlasten können und was das kostet."
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema('ueberUns')) }}
       />
     </>
   );

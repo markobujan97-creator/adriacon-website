@@ -21,10 +21,15 @@ export function Hero() {
             <span className="text-sky">auf Kurs.</span>
           </h1>
 
-          <p className="mt-7 max-w-text text-[1.06rem] leading-relaxed text-sky-light">
-            Adriacon begleitet Unternehmen und Privatpersonen bei Treuhand, Buchhaltung, Steuern und
-            Administration. Im Raum Aargau und Zürich persönlich vor Ort, in der ganzen Schweiz
-            digital.
+          {/* Zweite Ebene mit den tragenden Suchbegriffen der bestehenden Website */}
+          <h2 className="mt-6 max-w-text font-display text-[1.15rem] font-normal leading-snug !text-white sm:text-[1.3rem]">
+            Adriacon Treuhand GmbH – Treuhand, Buchhaltung und Steuern im Raum Aargau und Zürich
+          </h2>
+
+          <p className="mt-5 max-w-text text-[1.06rem] leading-relaxed text-sky-light">
+            Wir unterstützen Sie in Treuhand, Buchhaltung, Jahresabschlüssen und Steuern –
+            persönlich, transparent und effizient. Zuverlässige Treuhandlösungen für
+            Privatpersonen, Startups und KMU in der Schweiz.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">

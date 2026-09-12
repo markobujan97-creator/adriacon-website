@@ -1,16 +1,12 @@
 import type { Metadata } from 'next';
+import { breadcrumbSchema, metadataFor, seo } from '@/config/seo';
 import { Clock, Mail, MapPin, Phone, Plus } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContactForm } from '@/components/forms/ContactForm';
 import { faqs } from '@/config/content';
-import { site } from '@/config/site';
+import { regions, site } from '@/config/site';
 
-export const metadata: Metadata = {
-  title: 'Kontakt – Erstgespräch vereinbaren',
-  description:
-    'Adriacon Treuhand GmbH, Täfernstrasse 4, 5405 Baden-Dättwil. Telefon +41 76 541 40 08, info@adriacon.ch. Kostenloses Erstgespräch vereinbaren.',
-  alternates: { canonical: '/kontakt' },
-};
+export const metadata: Metadata = metadataFor('kontakt');
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -27,8 +23,8 @@ export default function KontaktPage() {
     <>
       <PageHeader
         label="Kontakt"
-        title="Reden wir über Ihre Ausgangslage."
-        lead="Ein Erstgespräch dauert rund 30 Minuten, ist kostenlos und verpflichtet zu nichts. Sie müssen nichts vorbereiten."
+        title={seo.kontakt.h1}
+        lead="Wir freuen uns auf Ihre Anfrage – persönlich, digital und unkompliziert. Ein Erstgespräch dauert rund 30 Minuten, ist kostenlos und verpflichtet zu nichts."
       />
 
       <section className="py-block">
@@ -106,6 +102,39 @@ export default function KontaktPage() {
         </div>
       </section>
 
+      {/* Einzugsgebiet */}
+      <section className="border-t border-line py-block">
+        <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <h2 className="text-d3">Wo wir arbeiten</h2>
+            <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-soft">
+              Unser Büro steht in Baden-Dättwil. Von dort betreuen wir Unternehmen und
+              Privatpersonen im Kanton Aargau und im Raum Zürich persönlich vor Ort. Wer lieber
+              digital zusammenarbeitet, ist überall in der Schweiz richtig bei uns – Belege,
+              Freigaben und Gespräche laufen dann online.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7">
+            <h3 className="label">Häufig betreute Orte</h3>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {regions.map((region) => (
+                <li
+                  key={region}
+                  className="rounded-full border border-line bg-white px-4 py-1.5 text-[0.88rem] text-ink-soft"
+                >
+                  {region}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-[0.88rem] leading-relaxed text-ink-light">
+              Wir haben nur einen Standort: Täfernstrasse 4 in Baden-Dättwil. Die Orte oben
+              beschreiben, wo unsere Mandate liegen – keine weiteren Büros.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Häufige Fragen */}
       <section className="bg-shell py-block">
         <div className="shell">
@@ -141,6 +170,11 @@ export default function KontaktPage() {
       </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema('kontakt')) }}
+      />
     </>
   );
 }

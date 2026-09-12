@@ -1,21 +1,17 @@
 import type { Metadata } from 'next';
+import { breadcrumbSchema, metadataFor } from '@/config/seo';
 import Link from 'next/link';
-import { ArrowRight, Plus } from 'lucide-react';
-import { StepLine } from '@/components/ui/StepLine';
+import { ArrowRight, Globe, Plus } from 'lucide-react';
+import { RopeLine } from '@/components/ui/RopeLine';
 import { Coordinates } from '@/components/ui/Coordinates';
 import { TaxOffers } from '@/components/tools/TaxOffers';
 import { TaxChecklist } from '@/components/tools/TaxChecklist';
 import { MySteuerhelfer } from '@/components/tools/MySteuerhelfer';
 import { Reveal } from '@/components/ui/Reveal';
 import { taxFaqs } from '@/config/content';
-import { site } from '@/config/site';
+import { mySteuerhelfer, site } from '@/config/site';
 
-export const metadata: Metadata = {
-  title: 'Steuererklärung ausfüllen lassen – ab CHF 49.–',
-  description:
-    'Steuererklärung für Privatpersonen ab CHF 99.–, Paare CHF 139.–, Selbstständige CHF 180.–, Studierende CHF 49.–. Unterlagen digital einreichen, persönlich geprüft. Adriacon Treuhand, Baden-Dättwil.',
-  alternates: { canonical: '/steuererklaerungen' },
-};
+export const metadata: Metadata = metadataFor('steuererklaerungen');
 
 const audiences = [
   {
@@ -58,24 +54,31 @@ export default function SteuererklaerungenPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line bg-shell">
-        <StepLine className="pointer-events-none absolute bottom-0 right-0 h-32 w-2/5 opacity-60" />
-        <div className="shell relative py-14 lg:py-20">
+        <RopeLine tone="shell" className="absolute inset-x-0 bottom-0 opacity-70" knotWidth={210} />
+        <div className="shell relative pb-36 pt-14 lg:pb-40 lg:pt-20">
           <p className="label">Für Privatpersonen</p>
           <h1 className="mt-4 max-w-3xl text-d1">
-            Ihre Steuererklärung.
+            Steuererklärung ausfüllen lassen.
             <br />
             <span className="text-blue">Ohne Papierstapel.</span>
           </h1>
           <p className="mt-6 max-w-text lead">
-            Unterlagen digital einreichen, von uns persönlich prüfen lassen, termingerecht
-            eingereicht. Zu einem Pauschalpreis, den Sie vorher kennen.
+            Für Privatpersonen, Paare, Studierende und Selbstständige im Aargau, in Zürich und in
+            der ganzen Schweiz. Unterlagen digital einreichen, von uns persönlich prüfen lassen,
+            termingerecht eingereicht – zu einem Pauschalpreis, den Sie vorher kennen.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/kontakt" className="btn-primary">
-              Steuererklärung in Auftrag geben
+            {/* Startet direkt in der Webversion von MySteuerhelfer */}
+            <a
+              href={mySteuerhelfer.webAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Steuererklärung jetzt einreichen
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            </a>
             <a
               href="/downloads/adriacon-checkliste-steuererklaerung.pdf"
               download
@@ -83,6 +86,9 @@ export default function SteuererklaerungenPage() {
             >
               Checkliste herunterladen
             </a>
+            <Link href="/kontakt" className="btn-outline">
+              Lieber zuerst fragen
+            </Link>
           </div>
         </div>
       </section>
@@ -110,7 +116,8 @@ export default function SteuererklaerungenPage() {
         <div className="shell">
           <h2 className="text-d2">Preise</h2>
           <p className="mt-5 max-w-text lead">
-            Ein Pauschalpreis pro Steuerjahr. Keine Stundenabrechnung, keine Überraschung.
+            Ein Pauschalpreis pro Steuerjahr. Keine Stundenabrechnung, keine MWST, keine
+            Überraschung.
           </p>
           <div className="mt-10">
             <TaxOffers />
@@ -202,22 +209,26 @@ export default function SteuererklaerungenPage() {
 
       {/* Einreichen */}
       <section className="relative overflow-hidden bg-navy text-white">
-        <StepLine
-          tone="dark"
-          className="pointer-events-none absolute bottom-0 right-0 h-40 w-1/2 opacity-40"
-        />
-        <div className="shell relative py-block">
+        <RopeLine tone="dark" className="absolute inset-x-0 bottom-0 opacity-55" knotWidth={230} />
+        <div className="shell relative pb-40 pt-block">
           <div className="max-w-xl">
             <h2 className="text-d2 !text-white">Bereit? Dann los.</h2>
             <p className="mt-5 text-[1.05rem] leading-relaxed text-sky-light">
-              Schreiben Sie uns kurz, um welches Steuerjahr es geht und welche Situation auf Sie
-              zutrifft. Wir melden uns innerhalb eines Arbeitstages und sagen Ihnen, was wir brauchen.
+              Unterlagen hochladen, Rest erledigen wir. Die Einreichung läuft über MySteuerhelfer –
+              direkt im Browser, ohne Installation. Wenn Sie lieber zuerst mit uns sprechen:
+              Wir melden uns innerhalb eines Arbeitstages.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/kontakt" className="btn-light">
-                Unterlagen einreichen
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a
+                href={mySteuerhelfer.webAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-light"
+              >
+                <Globe className="h-4 w-4" aria-hidden="true" />
+                Unterlagen jetzt einreichen
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </a>
               <a href={site.phoneHref} className="btn-ghost-dark">
                 {site.phone}
               </a>
@@ -228,6 +239,11 @@ export default function SteuererklaerungenPage() {
       </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema('steuererklaerungen')) }}
+      />
     </>
   );
 }

@@ -38,7 +38,7 @@ export function PackagesTeaser() {
         </ul>
 
         <p className="mt-8 text-[0.85rem] text-ink-light">
-          Alle Preise exklusive MWST. Ab-Preise bei digitalem Belegfluss.
+          Ab-Preise bei digitalem Belegfluss. Es fällt keine MWST an.
         </p>
       </div>
     </section>

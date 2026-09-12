@@ -26,9 +26,11 @@ Die Website trennt bewusst zwei Zielgruppen:
 8. [Domain adriacon.ch verbinden](#8-domain-adriaconch-verbinden)
 9. [Preise anpassen](#9-preise-anpassen)
 10. [Checkliste und PDF](#10-checkliste-und-pdf)
-11. [MySteuerhelfer und App-Store-Link](#11-mysteuerhelfer-und-app-store-link)
+11. [MySteuerhelfer und App-Links](#11-mysteuerhelfer-und-app-links)
+11a. [Mehrwertsteuer](#11a-mehrwertsteuer)
 12. [Texte anpassen](#12-texte-anpassen)
 13. [Logo und Bilder austauschen](#13-logo-und-bilder-austauschen)
+13a. [SEO](#13a-seo--titel-beschreibungen-und-überschriften)
 14. [Designsystem](#14-designsystem)
 15. [Projektstruktur](#15-projektstruktur)
 16. [Offene TODOs](#16-offene-todos)
@@ -135,9 +137,9 @@ Einzutragen in Vercel unter **Settings → Environment Variables**.
 | Variable | Pflicht? | Umgebungen | Beispielwert |
 |---|---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | **ja** | Production, Preview, Development | `https://www.adriacon.ch` |
-| `RESEND_API_KEY` | optional | Production, Preview | `re_...` |
-| `CONTACT_FROM_EMAIL` | optional | Production, Preview | `Adriacon Website <website@adriacon.ch>` |
-| `CONTACT_TO_EMAIL` | optional | Production, Preview | `info@adriacon.ch` |
+| `RESEND_API_KEY` | **für E-Mails nötig** | Production, Preview | `re_...` |
+| `CONTACT_TO_EMAIL` | optional (Vorgabe: `info@adriacon.ch`) | Production, Preview | `info@adriacon.ch` |
+| `CONTACT_FROM_EMAIL` | optional (Vorgabe: Resend-Testdomain) | Production, Preview | `Adriacon Website <website@adriacon.ch>` |
 
 **Nach dem Eintragen oder Ändern ist ein Redeployment nötig:**
 Deployments → oberster Eintrag → ⋯ → Redeploy.
@@ -153,29 +155,62 @@ cp .env.example .env.local
 
 ### Demo-Modus des Kontaktformulars
 
-Sind die drei E-Mail-Variablen **nicht** gesetzt, läuft das Formular im Demo-Modus:
-Die Website baut und deployt normal, Absendende erhalten eine Erfolgsmeldung, die
-Anfrage erscheint in den Vercel-Logs (`[kontakt] Kein Versanddienst konfiguriert`),
-es wird aber **keine E-Mail versendet**.
+Ohne `RESEND_API_KEY` läuft das Formular im Demo-Modus: Die Website baut und
+deployt normal, Absendende erhalten eine Erfolgsmeldung mit dem Hinweis, sich
+zur Sicherheit direkt an info@adriacon.ch zu wenden, und die Anfrage erscheint
+in den Vercel-Logs. Es wird aber **keine E-Mail versendet**. Details in
+Abschnitt 7.
 
 ---
 
 ## 7. Kontaktformular einrichten
 
-Versand über **Resend** (<https://resend.com>), kostenloses Kontingent 3'000 E-Mails/Monat.
+Damit Formularanfragen als E-Mail bei **info@adriacon.ch** ankommen, brauchen Sie
+genau **eine** Umgebungsvariable: `RESEND_API_KEY`.
 
-1. Bei Resend registrieren
-2. Unter **Domains** `adriacon.ch` hinzufügen
-3. Die angezeigten DNS-Einträge (SPF, DKIM) beim Domain-Anbieter eintragen
-4. Warten, bis Resend „Verified" anzeigt
-5. Unter **API Keys** einen Schlüssel erzeugen
-6. In Vercel als `RESEND_API_KEY` eintragen
-7. `CONTACT_FROM_EMAIL` auf eine Adresse der verifizierten Domain setzen
-8. `CONTACT_TO_EMAIL` auf `info@adriacon.ch` setzen
-9. Redeployment auslösen und auf der Live-Seite testen
+Empfänger und Absender haben sinnvolle Vorgabewerte:
 
-**Eingebauter Schutz:** unsichtbares Honeypot-Feld, Ratenbegrenzung von fünf
-Anfragen pro Minute und IP, doppelte Validierung im Browser und auf dem Server.
+| Variable | Ohne Angabe |
+|---|---|
+| `CONTACT_TO_EMAIL` | `info@adriacon.ch` |
+| `CONTACT_FROM_EMAIL` | Testdomain von Resend (`onboarding@resend.dev`) |
+
+### Einrichtung in fünf Minuten
+
+1. Auf <https://resend.com> registrieren (kostenlos, 3'000 E-Mails pro Monat)
+2. Unter **API Keys** einen Schlüssel erzeugen
+3. In Vercel unter **Settings → Environment Variables** als `RESEND_API_KEY`
+   eintragen, für Production und Preview
+4. **Redeploy** auslösen
+5. Formular auf der Live-Seite testen – die Anfrage sollte innert Sekunden in
+   Ihrem Posteingang liegen
+
+Damit funktioniert der Versand sofort. Die Antwortadresse ist automatisch die
+E-Mail-Adresse der anfragenden Person, Sie können also direkt auf „Antworten"
+klicken.
+
+### Empfohlener zweiter Schritt: eigene Absenderdomain
+
+Mit der Testdomain landen Mails gelegentlich im Spam. Für den Dauerbetrieb:
+
+1. Bei Resend unter **Domains** `adriacon.ch` hinzufügen
+2. Die angezeigten DNS-Einträge (SPF, DKIM) beim Domain-Anbieter eintragen
+3. Warten, bis Resend „Verified" anzeigt
+4. `CONTACT_FROM_EMAIL` auf `Adriacon Website <website@adriacon.ch>` setzen
+5. Redeploy
+
+### Wenn nichts konfiguriert ist
+
+Ohne `RESEND_API_KEY` läuft das Formular im Demo-Modus: Die Anfrage wird
+entgegengenommen und in den Vercel-Logs protokolliert
+(`[kontakt] Kein RESEND_API_KEY gesetzt`), es wird aber keine E-Mail versendet.
+Die absendende Person sieht in diesem Fall zusätzlich den Hinweis, sich zur
+Sicherheit direkt an info@adriacon.ch zu wenden – so geht keine Anfrage verloren.
+
+### Eingebauter Spam-Schutz
+
+Unsichtbares Honeypot-Feld, Ratenbegrenzung von fünf Anfragen pro Minute und
+IP-Adresse, doppelte Validierung im Browser und auf dem Server.
 
 ---
 
@@ -284,32 +319,68 @@ Die Seite `/steuererklaerungen/checkliste` ist für den Druck optimiert
 
 ---
 
-## 11. MySteuerhelfer und App-Store-Link
+## 11. MySteuerhelfer und App-Links
 
 MySteuerhelfer ist die von Adriacon selbst entwickelte App. Sie steht allen
 Interessierten offen – es gibt keine Freischaltung und kein „Zugang anfragen".
 
-**Offen:** Der echte App-Store-Link fehlt noch. Er wird zentral hinterlegt in
-`config/site.ts`:
+Beide Links sind in `config/site.ts` hinterlegt und aktiv:
 
 ```ts
 export const mySteuerhelfer = {
-  appStoreUrl: null,   // ← TODO: echten App-Store-Link eintragen
-  webAppUrl: null,     // ← optional, falls eine Webversion existiert
-  platforms: 'Verfügbar für iOS.',
+  appStoreUrl: 'https://apps.apple.com/au/app/mysteuerhelfer/id6758463921',
+  webAppUrl:  'https://steuererklarungs-helfer-0819f95c.base44.app/',
+  platforms:  'Als App für iOS und als Webversion im Browser.',
 };
 ```
 
-Solange `appStoreUrl` auf `null` steht, wird der Button **deaktiviert**
-dargestellt und verweist bewusst nirgendwohin. Darunter erscheint der Hinweis,
-dass der Download-Link ergänzt wird. Sobald Sie den echten Link eintragen,
-wird der Button automatisch aktiv – sonst ist nichts zu tun.
+Daraus entstehen zwei Buttons: **„Im App Store herunterladen"** und
+**„MySteuerhelfer im Browser öffnen"**. Sie erscheinen auf der Seite
+Steuererklärungen, auf der Tools-Seite und – als Textlinks – im Footer.
+Zusätzlich steht der Browser-Button direkt im Hero der Seite Steuererklärungen.
+
+> **TODO (Adriacon):** Der gelieferte App-Store-Link zeigt auf die
+> **australische** Storefront (`/au/`). Für Schweizer Besucherinnen und Besucher
+> ist normalerweise `https://apps.apple.com/ch/app/mysteuerhelfer/id6758463921`
+> die richtige Adresse. Bitte einmal auf einem Schweizer Gerät prüfen und den
+> Wert in `config/site.ts` bei Bedarf auf `/ch/` umstellen.
 
 Es wurde bewusst **kein** offizielles „Download on the App Store"-Badge
 verwendet, da dessen Nutzung an Apples Marketing-Richtlinien gebunden ist.
-Wenn Sie das offizielle Badge einsetzen möchten, laden Sie es bei Apple
-Marketing Resources herunter und ersetzen Sie den Button in
-`components/tools/MySteuerhelfer.tsx`.
+Wenn Sie das Badge einsetzen möchten, laden Sie es bei Apple Marketing Resources
+herunter und ersetzen Sie den Button in `components/tools/MySteuerhelfer.tsx`.
+
+---
+
+## 11a. Mehrwertsteuer
+
+Die Adriacon Treuhand GmbH ist **nicht mehrwertsteuerpflichtig** (Jahresumsatz
+unter CHF 100'000). Alle Preise auf der Website sind deshalb Endpreise.
+
+Im Code ist das an einer Stelle hinterlegt:
+
+```ts
+// config/pricing.ts
+vatLiable: false,
+
+export const vatNote =
+  'Adriacon ist nicht mehrwertsteuerpflichtig. Auf unsere Honorare fällt keine MWST an …';
+```
+
+`vatNote` erscheint überall dort, wo Preise stehen – auf der Paketeseite und bei
+den Steuerangeboten. Sämtliche früheren Formulierungen „exklusive MWST" wurden
+entfernt.
+
+**Wichtig zur Abgrenzung:** Betroffen ist ausschliesslich die eigene
+Rechnungsstellung. **MWST bleibt als Dienstleistung für Kundinnen und Kunden
+bestehen** – MWST-Abrechnungen, die Wahl zwischen Saldosteuersatz und effektiver
+Methode, der Zuschlag von CHF 60.– für die effektive Abrechnung sowie die
+MWST-Anmeldung bei der Firmengründung. Sollte auch das entfallen, genügt ein
+Hinweis; die betroffenen Stellen sind `config/pricing.ts`, `config/content.ts`
+und `lib/jahreskurs.ts`.
+
+Sobald der Umsatz die Schwelle überschreitet: `vatLiable` auf `true` setzen,
+`vatNote` anpassen und die Preisangaben um „exkl. MWST" ergänzen.
 
 ---
 
@@ -325,7 +396,9 @@ Marketing Resources herunter und ersetzen Sie den Button in
 | Themen des Jahreskurses | `lib/jahreskurs.ts` |
 | MySteuerhelfer-Erklärung | `components/tools/MySteuerhelfer.tsx` |
 | Hero-Grafik (Etappen und Beschriftung) | `components/ui/CourseGraphic.tsx` |
-| Seitentitel und SEO je Seite | jeweils `app/<seite>/page.tsx` |
+| Seil und Palstek (Form, Farben, Grösse) | `components/ui/RopeLine.tsx` |
+| Einzugsgebiet (Ortsliste) | `config/site.ts` |
+| Seitentitel, Beschreibungen, Suchbegriffe, H1 | `config/seo.ts` |
 
 Alle Texte in Schweizer Hochdeutsch („ss" statt „ß", Anrede „Sie").
 
@@ -360,6 +433,136 @@ Personen ganz sichtbar bleiben.
 | `public/brand/adriacon-logo.svg` | SVG-Logo – gestochen scharf auf allen Bildschirmen |
 | `public/favicon.ico` | Browser-Symbol |
 | Weitere echte Bürobilder | Über-uns-Seite noch persönlicher machen |
+
+---
+
+## 13a. SEO – Titel, Beschreibungen und Überschriften
+
+Alle SEO-Angaben liegen zentral in **`config/seo.ts`**. Pro Seite sind dort
+Titel, Meta-Description, Suchbegriffe, Canonical-Pfad und die H1 hinterlegt.
+Die Seiten lesen die Werte über `metadataFor('seite')` aus – Sie müssen nur an
+einer Stelle etwas ändern.
+
+### Von der bestehenden Website übernommen
+
+Titel, Beschreibungen und H1 der folgenden Seiten sind **unverändert** von
+adriacon.ch übernommen, damit die dort erarbeiteten Rankings erhalten bleiben:
+
+| Neue Seite | Bisherige Seite | Titel |
+|---|---|---|
+| `/` | Startseite | Adriacon Treuhand GmbH – Treuhand im Raum Aargau und Zürich |
+| `/leistungen` | /dienstleistungen/ | Steuererklärung Aargau & Treuhand Schweiz – Dienstleistungen |
+| `/ueber-uns` | /ueber-uns/ | Ihr KMU-Treuhand Partner im Aargau |
+| `/kontakt` | /kontakt/ | Kontakt Adriacon – Treuhand & Steuerberatung in Aargau / Baden |
+
+Auch die H1 wurden übernommen, etwa
+„Steuererklärung und weitere Treuhand-Dienstleistungen im Raum Aargau und Zürich"
+und „Über uns – Ihr Treuhand-Partner in der Schweiz".
+
+### Neu formuliert
+
+`/pakete`, `/steuererklaerungen` und `/tools` gab es bisher nicht. Ihre Titel
+folgen demselben Muster aus Leistung und Region, mit den Preisen als Anker:
+
+- „Treuhand-Pakete und Preise für KMU – ab CHF 320.– pro Monat"
+- „Steuererklärung ausfüllen lassen – Aargau, Zürich und Schweiz"
+- „Treuhand-Tools: Paketfinder, Steuerpreise und Jahreskurs"
+
+### Überschriftenhierarchie
+
+Jede Seite hat **genau eine H1**, danach H2 für Abschnitte und H3 für Einträge.
+
+Auf der Startseite bleibt die H1 der Leitsatz **„Wir halten Sie auf Kurs."**
+Damit die Suchbegriffe trotzdem prominent stehen, folgt unmittelbar darunter
+eine sichtbare H2:
+„Adriacon Treuhand GmbH – Treuhand, Buchhaltung und Steuern im Raum Aargau und Zürich".
+
+### Suchbegriffe
+
+Pro Seite sind zwischen 20 und 35 Begriffe hinterlegt, aufgeteilt in einen
+gemeinsamen Grundstock (`baseKeywords`) und seitenspezifische Begriffe:
+
+- **Grundstock, auf jeder Seite:** Treuhand, Treuhand Schweiz, Treuhand Aargau,
+  Treuhand Zürich, Treuhand Baden, Treuhand Baden-Dättwil, Treuhandbüro Aargau,
+  Treuhänder Schweiz, Buchhaltung, Buchhaltung Schweiz, Buchhaltung Aargau,
+  Buchhaltung Zürich, KMU Buchhaltung, KMU Treuhand, Steuererklärung,
+  Steuererklärung Aargau, Steuererklärung Zürich, Adriacon Treuhand
+- **Leistungen:** Finanzbuchhaltung, Jahresabschluss erstellen lassen,
+  Buchhaltung auslagern, Lohnbuchhaltung, Quellensteuer, Personaladministration,
+  MWST-Abrechnung, Saldosteuersatz, Firmengründung, GmbH gründen,
+  Unternehmensberatung, Liquiditätsplanung, Debitorenmanagement
+- **Pakete:** Treuhand Preise, Treuhand Kosten KMU, Buchhaltung Kosten,
+  Treuhand Pauschale, Firmengründung GmbH Kosten, CFO Dienstleistung KMU
+- **Steuererklärungen:** Steuererklärung ausfüllen lassen, Steuererklärung
+  Baden, Steuererklärung Preis, Privatpersonen, Ehepaar, Studierende,
+  Selbstständige, online einreichen, digital, Steuerberatung Aargau,
+  MySteuerhelfer
+
+Bewusst **nicht** aufgenommen: Orte ohne Bezug zum Betreuungsgebiet. Suchbegriffe
+für Städte, in denen Adriacon weder sitzt noch Mandate betreut, wären
+Keyword-Stuffing und schaden dem Ranking mehr, als sie nützen. Google erkennt
+das zuverlässig.
+
+### Lokale Sichtbarkeit
+
+Auf der Kontaktseite steht ein Abschnitt „Wo wir arbeiten" mit dem
+Betreuungsgebiet (Baden, Wettingen, Brugg, Aarau, Lenzburg, Zürich, Dietikon,
+Schlieren, Zug). Dort ist ausdrücklich vermerkt, dass es nur einen Standort gibt
+– erfundene Zweigstellen würden bei Google als Spam gewertet.
+
+Die Ortsliste steht in `config/site.ts` unter `regions` und lässt sich jederzeit
+erweitern.
+
+### Weitere SEO-Massnahmen
+
+- `sitemap.xml` und `robots.txt` werden automatisch erzeugt
+- Canonical-URL je Seite
+- Open Graph und Twitter Cards je Seite, mit Vorschaubild
+- `ProfessionalService`-Schema mit Adresse, **echten Geo-Koordinaten**,
+  Öffnungszeiten, `knowsAbout` und einem Leistungskatalog (`hasOfferCatalog`)
+- `BreadcrumbList`-Schema auf jeder Unterseite
+- `FAQPage`-Schema auf der Kontakt- und auf der Steuerseite
+- `googleBot`-Regeln mit `max-image-preview: large`
+
+### Was die Website allein nicht leisten kann
+
+Technisch ist die Seite jetzt sauber. Für vordere Plätze braucht es zusätzlich:
+
+1. **Google Business Profile** für Baden-Dättwil vollständig ausfüllen und
+   Kategorien setzen (Treuhandbüro, Steuerberater, Buchhaltung). Für lokale
+   Suchanfragen ist das oft wichtiger als die Website selbst.
+2. **Echte Bewertungen** einsammeln. Ich habe bewusst keine erfunden.
+3. **Einträge in Schweizer Verzeichnissen** (local.ch, search.ch, Treuhand-Suva
+   bzw. Branchenverbände) mit exakt identischer Schreibweise von Name, Adresse
+   und Telefonnummer.
+4. **Regelmässige Inhalte**, etwa kurze Beiträge zu Fristen, MWST-Themen oder
+   Gründungsfragen. Dafür wäre eine Rubrik `/wissen` der nächste sinnvolle
+   Ausbauschritt.
+5. **Geduld.** Nach dem Umzug braucht Google einige Wochen, bis die neuen
+   Adressen die alten Positionen übernommen haben.
+
+### Umzug von WordPress – bitte nicht vergessen
+
+Die Adressen ändern sich. Richten Sie im alten System oder bei Vercel
+301-Weiterleitungen ein:
+
+| Alt | Neu |
+|---|---|
+| `/dienstleistungen/` | `/leistungen` |
+| `/steuererklaerung-digital/` | `/steuererklaerungen` |
+| `/steuern/` | `/steuererklaerungen` |
+| `/finanzbuchhaltung-abschluesse/` | `/leistungen` |
+| `/lohnwesen-personaladministration/` | `/leistungen` |
+| `/firmengruendung-start-up-begleitung/` | `/leistungen` |
+| `/mehrwertsteuer-mwst/` | `/leistungen` |
+| `/unternehmensberatung/` | `/leistungen` |
+| `/web-grafikdesign/` | `/leistungen` |
+| `/versicherungen/` | `/leistungen` |
+| `/datenschutzerklaerung/` | `/datenschutz` |
+
+**Diese Weiterleitungen sind bereits in `next.config.mjs` eingerichtet.** Sie
+greifen automatisch, sobald die neue Website unter adriacon.ch läuft. Melden Sie
+die neue Sitemap anschliessend in der Google Search Console an.
 
 ---
 
@@ -399,8 +602,15 @@ Server ausgeliefert. Beim Seitenbesuch entsteht keine Verbindung zu Google.
 - **Koordinaten** (`components/ui/Coordinates.tsx`): das Standortdetail
   `47.4658° N · 8.2624° O`, sparsam eingesetzt in Hero-Grafik, Footer,
   unter dem Bürofoto und im Abschlussbereich der Steuerseite.
-- **Stufenlinie** (`components/ui/StepLine.tsx`): feine ansteigende Kontur in
-  Seitenköpfen und CTA-Bändern.
+- **Bootsseil mit Palstek** (`components/ui/RopeLine.tsx`): das Seil läuft quer
+  durch den Abschnitt und endet rechts in einem Palstek mit hängender Schlaufe.
+  Eingesetzt in allen Seitenköpfen, im CTA-Band und auf der Steuerseite.
+  Technisch zweiteilig: das gerade Stück ist ein CSS-Verlauf und dehnt sich
+  verzerrungsfrei, der Knoten ist ein SVG mit festem Seitenverhältnis. Die
+  Über- und Unterführungen entstehen dadurch, dass jedes Seilstück zuerst in
+  der Hintergrundfarbe gezeichnet wird. Über `tone` wird die Hintergrundfarbe
+  des Abschnitts gesetzt (`light`, `shell` oder `dark`) – das ist wichtig,
+  sonst stimmen die Freistellungen nicht.
 - **Ansteigende Etappen** auf der Startseite: die fünf Stufen versetzen sich auf
   grossen Bildschirmen tatsächlich nach oben – Layout statt Ornament.
 
@@ -434,7 +644,7 @@ adriacon-web/
 │
 ├── components/
 │   ├── layout/    Header · Footer · PageHeader · LegalLayout
-│   ├── ui/        Logo · CourseGraphic · StepLine · Coordinates
+│   ├── ui/        Logo · CourseGraphic · RopeLine (Palstek) · Coordinates
 │   │              SectionIntro · Reveal · CtaBand · PrintButton
 │   ├── home/      Hero · TrustRow · ServicesOverview · PackagesTeaser
 │   │              StepsPreview · ToolsTeaser · AboutTeaser
@@ -443,7 +653,7 @@ adriacon-web/
 │   │              MySteuerhelfer
 │   └── forms/     ContactForm
 │
-├── config/   pricing.ts · site.ts · content.ts · tax-checklist.json
+├── config/   pricing.ts · site.ts · seo.ts · content.ts · tax-checklist.json
 ├── lib/      recommendPackage.ts · jahreskurs.ts · format.ts · contactSchema.ts
 ├── scripts/  generate-checklist-pdf.py
 ├── types/    index.ts
@@ -463,8 +673,9 @@ grep -rn "TODO" app components config lib
 
 ### Inhaltlich zu klären
 
-1. **App-Store-Link für MySteuerhelfer** (`config/site.ts`)
-   Der Button ist vorbereitet und bis dahin deaktiviert. Siehe Abschnitt 11.
+1. **App-Store-Storefront prüfen** (`config/site.ts`)
+   Der gelieferte Link zeigt auf `/au/` (Australien). Für die Schweiz ist
+   vermutlich `/ch/` richtig. Siehe Abschnitt 11.
 2. **Abgrenzungen bei den Steuerpreisen** (`config/pricing.ts`)
    Ab wann gilt ein Fall als „aussergewöhnlich komplex" – Liegenschaften,
    Wertschriftendepots, mehrere Kantone, Krypto-Bestände? Und welcher Ansatz gilt
@@ -474,9 +685,11 @@ grep -rn "TODO" app components config lib
    Der Wert liegt im Code, wird auf der Website aber nicht gezeigt.
 4. **„Mystery-Helper" im Paket ADRIACON KMU** (`config/pricing.ts`)
    Ich gehe davon aus, dass die App **MySteuerhelfer** gemeint ist. Bitte bestätigen.
-5. **Standortkoordinaten** (`config/site.ts`)
-   `47.4658° N · 8.2624° O` – bitte exakt bestätigen, sie erscheinen sichtbar.
+5. **301-Weiterleitungen von den alten WordPress-Adressen** sind in
+   `next.config.mjs` eingerichtet – nach dem Umzug einmal stichprobenweise prüfen.
 6. **SVG-Logo und Favicon** – siehe Abschnitt 13.
+7. **MWST als Kundenleistung** – bitte bestätigen, dass MWST-Abrechnungen für
+   Kundinnen und Kunden weiterhin angeboten werden. Siehe Abschnitt 11a.
 
 ### Rechtlich zu prüfen
 

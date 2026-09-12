@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/contactSchema';
+import { site } from '@/config/site';
 
 export const runtime = 'nodejs';
 
@@ -74,13 +75,28 @@ export async function POST(request: Request) {
     .join('\n');
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  const to = process.env.CONTACT_TO_EMAIL;
 
-  if (!apiKey || !from || !to) {
-    // Demo-Modus: ohne konfigurierten Versanddienst wird die Anfrage nur protokolliert.
-    // TODO (Betrieb): RESEND_API_KEY, CONTACT_FROM_EMAIL und CONTACT_TO_EMAIL in Vercel setzen.
-    console.warn('[kontakt] Kein Versanddienst konfiguriert. Anfrage:\n' + text);
+  /**
+   * Empfängeradresse. Ohne gesetzte Umgebungsvariable geht jede Anfrage an
+   * info@adriacon.ch – so landen Anfragen auch dann am richtigen Ort, wenn beim
+   * Deployment nur der API-Schlüssel gesetzt wurde.
+   */
+  const to = process.env.CONTACT_TO_EMAIL || site.email;
+
+  /**
+   * Absenderadresse. Der Vorgabewert nutzt die Testdomain von Resend und
+   * funktioniert sofort. Für den produktiven Betrieb sollte eine verifizierte
+   * Adresse der eigenen Domain gesetzt werden, damit die Zustellung zuverlässig
+   * ist und die Mails nicht im Spam landen.
+   */
+  const from = process.env.CONTACT_FROM_EMAIL || 'Adriacon Website <onboarding@resend.dev>';
+
+  if (!apiKey) {
+    // Demo-Modus: ohne API-Schlüssel wird die Anfrage nur protokolliert.
+    // TODO (Betrieb): RESEND_API_KEY in Vercel setzen, damit E-Mails ankommen.
+    console.warn(
+      '[kontakt] Kein RESEND_API_KEY gesetzt – es wurde keine E-Mail versendet. Anfrage:\n' + text,
+    );
     return NextResponse.json({ ok: true, delivered: false });
   }
 
@@ -97,6 +113,7 @@ export async function POST(request: Request) {
     });
 
     if (sent.error) throw new Error(sent.error.message);
+    console.info(`[kontakt] Anfrage von ${data.email} an ${to} zugestellt.`);
     return NextResponse.json({ ok: true, delivered: true });
   } catch (error) {
     console.error('[kontakt] Versand fehlgeschlagen', error);

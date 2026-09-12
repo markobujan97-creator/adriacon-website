@@ -2,13 +2,14 @@ import Link from 'next/link';
 import { Linkedin, Instagram } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { Coordinates } from '@/components/ui/Coordinates';
-import { navigation, site } from '@/config/site';
+import { mySteuerhelfer, navigation, site } from '@/config/site';
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-navy-deep text-sky-light">
+      <h2 className="sr-only">Adriacon Treuhand GmbH – Kontakt und Navigation</h2>
       <div className="shell grid gap-10 py-14 md:grid-cols-12">
         <div className="md:col-span-4">
           <Logo variant="light" />
@@ -17,7 +18,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-3">
-          <h2 className="label !text-sky">Standort</h2>
+          <h3 className="label !text-sky">Standort</h3>
           <address className="mt-4 not-italic text-sm leading-7">
             {site.address.street}
             <br />
@@ -35,7 +36,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-2">
-          <h2 className="label !text-sky">Kontakt</h2>
+          <h3 className="label !text-sky">Kontakt</h3>
           <ul className="mt-4 space-y-1.5 text-sm">
             <li>
               <a href={`mailto:${site.email}`} className="hover:text-white">
@@ -60,7 +61,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer-Navigation" className="md:col-span-3">
-          <h2 className="label !text-sky">Navigation</h2>
+          <h3 className="label !text-sky">Navigation</h3>
           <ul className="mt-4 space-y-1.5 text-sm">
             {navigation.map((item) => (
               <li key={item.href}>
@@ -70,6 +71,30 @@ export function Footer() {
               </li>
             ))}
           </ul>
+          <h3 className="label !text-sky mt-6">MySteuerhelfer</h3>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            <li>
+              <a
+                href={mySteuerhelfer.webAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
+                Im Browser öffnen
+              </a>
+            </li>
+            <li>
+              <a
+                href={mySteuerhelfer.appStoreUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
+                Im App Store laden
+              </a>
+            </li>
+          </ul>
+
           <div className="mt-6 flex gap-3">
             <a
               href={site.social.linkedin}
@@ -96,7 +121,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="shell flex flex-col gap-3 py-6 text-xs text-sky-light/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.name}. Alle Preise exklusive MWST.
+            © {year} {site.name}. Alle Preise ohne MWST – wir sind nicht mehrwertsteuerpflichtig.
           </p>
           <ul className="flex gap-6">
             <li>

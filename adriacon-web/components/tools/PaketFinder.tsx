@@ -6,6 +6,7 @@ import { ArrowRight, Check, Download, RotateCcw, Smartphone } from 'lucide-react
 import { emptyAnswers, recommend } from '@/lib/recommendPackage';
 import type { FinderAnswers, SupportLevel, TeamSize, Track } from '@/types';
 import type { TaxOfferId } from '@/config/pricing';
+import { mySteuerhelfer } from '@/config/site';
 
 function Choice<T extends string | boolean>({
   legend,
@@ -198,10 +199,16 @@ export function PaketFinder() {
                 <div className="mt-7 flex flex-col gap-3">
                   {result.kind === 'tax' ? (
                     <>
-                      <Link href="/steuererklaerungen#mysteuerhelfer" className="btn-primary">
+                      {/* Führt direkt in die Webversion von MySteuerhelfer */}
+                      <a
+                        href={mySteuerhelfer.webAppUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary"
+                      >
                         <Smartphone className="h-4 w-4" aria-hidden="true" />
-                        MySteuerhelfer ansehen
-                      </Link>
+                        Unterlagen jetzt einreichen
+                      </a>
                       <a
                         href="/downloads/adriacon-checkliste-steuererklaerung.pdf"
                         download
@@ -210,8 +217,8 @@ export function PaketFinder() {
                         <Download className="h-4 w-4" aria-hidden="true" />
                         Checkliste herunterladen
                       </a>
-                      <Link href="/kontakt" className="btn-outline">
-                        Unterlagen einreichen
+                      <Link href="/steuererklaerungen" className="btn-outline">
+                        Alles zur Steuererklärung
                       </Link>
                     </>
                   ) : (
@@ -232,7 +239,7 @@ export function PaketFinder() {
                 <p className="mt-6 text-[0.78rem] leading-relaxed text-ink-light">
                   {result.kind === 'tax'
                     ? 'Pauschalpreis pro Steuerjahr. Bei aussergewöhnlich komplexen Verhältnissen informieren wir Sie vorab über allfällige Mehrkosten.'
-                    : 'Unverbindliche Orientierung, keine Offerte. Alle Preise exklusive MWST. Den definitiven Preis legen wir nach einem kurzen Gespräch fest.'}
+                    : 'Unverbindliche Orientierung, keine Offerte. Den definitiven Preis legen wir nach einem kurzen Gespräch fest. Es fällt keine MWST an.'}
                 </p>
               </>
             ) : (

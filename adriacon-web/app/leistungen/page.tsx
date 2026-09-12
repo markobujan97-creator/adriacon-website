@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { breadcrumbSchema, metadataFor, seo } from '@/config/seo';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
@@ -6,12 +7,7 @@ import { CtaBand } from '@/components/ui/CtaBand';
 import { Reveal } from '@/components/ui/Reveal';
 import { serviceGroups } from '@/config/content';
 
-export const metadata: Metadata = {
-  title: 'Leistungen – Buchhaltung, Steuern, Lohn und Gründung',
-  description:
-    'Treuhand und Finanzen, Gründung und Unternehmensentwicklung sowie das Adriacon Netzwerk. Alle Leistungen der Adriacon Treuhand GmbH im Überblick.',
-  alternates: { canonical: '/leistungen' },
-};
+export const metadata: Metadata = metadataFor('leistungen');
 
 export default function LeistungenPage() {
   const [primary, ...rest] = serviceGroups;
@@ -20,8 +16,8 @@ export default function LeistungenPage() {
     <>
       <PageHeader
         label="Leistungen"
-        title="Was wir für Sie übernehmen."
-        lead="Treuhand ist unser Handwerk. Gründung und Unternehmensentwicklung begleiten wir. Alles Weitere koordinieren wir über geprüfte Partner."
+        title={seo.leistungen.h1}
+        lead="Unsere Dienstleistungen halten Ihnen den Rücken frei. Wir übernehmen die administrativen, finanziellen und organisatorischen Aufgaben, damit Sie sich auf Ihr Kerngeschäft konzentrieren können – von der Buchhaltung über Steuern bis zur Unternehmensberatung."
       />
 
       {/* Kernbereich */}
@@ -92,6 +88,11 @@ export default function LeistungenPage() {
       </section>
 
       <CtaBand />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema('leistungen')) }}
+      />
     </>
   );
 }

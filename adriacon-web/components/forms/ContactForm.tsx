@@ -10,6 +10,8 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverError, setServerError] = useState<string | null>(null);
+  /** false, wenn die Anfrage entgegengenommen, aber keine E-Mail versendet wurde. */
+  const [delivered, setDelivered] = useState(true);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -51,6 +53,7 @@ export function ContactForm() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data?.message ?? 'Die Anfrage konnte nicht gesendet werden.');
+      setDelivered(data?.delivered !== false);
       setStatus('success');
     } catch (e) {
       setStatus('error');
@@ -76,6 +79,16 @@ export function ContactForm() {
           Wir melden uns innerhalb eines Arbeitstages. Wenn es eilt, erreichen Sie uns direkt unter
           +41 76 541 40 08.
         </p>
+        {!delivered && (
+          <p className="mt-4 border-t border-sky pt-4 text-[0.88rem] leading-relaxed text-ink-soft">
+            Hinweis: Der E-Mail-Versand ist auf diesem Server noch nicht eingerichtet. Bitte
+            schreiben Sie uns zur Sicherheit direkt an{' '}
+            <a href="mailto:info@adriacon.ch" className="underline underline-offset-2">
+              info@adriacon.ch
+            </a>
+            .
+          </p>
+        )}
       </div>
     );
   }
