@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { PageHeader } from '@/components/layout/PageHeader';
 
 /** Gemeinsame Hülle für Impressum und Datenschutzerklärung. */
@@ -10,7 +11,7 @@ export function LegalLayout({
   label: string;
   title: string;
   updated: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <>

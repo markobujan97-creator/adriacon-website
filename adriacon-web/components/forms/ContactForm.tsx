@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Check, Loader2, Send } from 'lucide-react';
 import { contactSchema, topicOptions } from '@/lib/contactSchema';
 
@@ -13,7 +13,7 @@ export function ContactForm() {
   /** false, wenn die Anfrage entgegengenommen, aber keine E-Mail versendet wurde. */
   const [delivered, setDelivered] = useState(true);
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     // Mehrfaches Absenden während eines laufenden Requests verhindern
     if (status === 'sending') return;

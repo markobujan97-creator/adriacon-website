@@ -156,11 +156,18 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobilmenü */}
+      {/*
+        Mobilmenü.
+        Die Sichtbarkeit wird über Tailwind-Klassen gesteuert, nicht über das
+        hidden-Attribut. So ist eindeutig festgelegt, dass das Panel im
+        geschlossenen Zustand display:none hat und niemals den Seiteninhalt
+        überdecken kann. Zusätzlich wird es ab 1024 Pixel immer ausgeblendet.
+      */}
       <div
         id="mobile-nav"
-        hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-[4.5rem] z-40 overflow-y-auto overscroll-contain border-t border-line bg-white lg:hidden"
+        className={`fixed inset-x-0 bottom-0 top-[4.5rem] z-40 overflow-y-auto overscroll-contain border-t border-line bg-white lg:hidden ${
+          open ? 'block' : 'hidden'
+        }`}
       >
         <nav aria-label="Navigation" className="shell py-5">
           <ul className="divide-y divide-line">

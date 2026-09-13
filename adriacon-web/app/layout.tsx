@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Jost, Hanken_Grotesk } from 'next/font/google';
 import './globals.css';
@@ -141,7 +142,7 @@ const organisationSchema = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="de-CH" className={`${display.variable} ${sans.variable}`}>
       <body>

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { SectionIntro } from '@/components/ui/SectionIntro';
 import { Reveal } from '@/components/ui/Reveal';
 import { steps } from '@/config/content';
@@ -8,8 +9,8 @@ import { steps } from '@/config/content';
  * das Treppenmotiv als Layout statt als Dekoration.
  */
 /** Versatz je Stufe – nur auf grossen Bildschirmen sichtbar. */
-function riseStyle(index: number): React.CSSProperties {
-  return { '--rise': `${index * 1.6}rem` } as React.CSSProperties;
+function riseStyle(index: number): CSSProperties {
+  return { '--rise': `${index * 1.6}rem` } as CSSProperties;
 }
 
 export function StepsPreview() {
