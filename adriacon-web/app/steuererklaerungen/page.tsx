@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { breadcrumbSchema, metadataFor } from '@/config/seo';
+import { breadcrumbSchema, metadataFor, seo } from '@/config/seo';
 import Link from 'next/link';
 import { ArrowRight, Globe, Plus } from 'lucide-react';
 import { RopeLine } from '@/components/ui/RopeLine';
@@ -64,8 +64,8 @@ export default function SteuererklaerungenPage() {
             <span className="text-blue">Ohne Papierstapel.</span>
           </p>
           <h1 className="mt-6 max-w-3xl font-display text-[1.15rem] font-normal leading-snug text-navy sm:text-[1.3rem]">
-  Steuererklärung ausfüllen lassen im Aargau, Zürich und der ganzen Schweiz
-</h1>
+            {seo.steuererklaerungen.h1}
+          </h1>
           <p className="mt-5 max-w-text lead">
             Für Privatpersonen, Paare, Studierende und Selbstständige im Aargau, in Zürich und in
             der ganzen Schweiz. Unterlagen digital einreichen, von uns persönlich prüfen lassen,
@@ -120,8 +120,7 @@ export default function SteuererklaerungenPage() {
         <div className="shell">
           <h2 className="text-d2">Preise für die Steuererklärung</h2>
           <p className="mt-5 max-w-text lead">
-            Ein Pauschalpreis pro Steuerjahr. Keine Stundenabrechnung, keine MWST, keine
-            Überraschung.
+            Ein Pauschalpreis pro Steuerjahr. Keine Stundenabrechnung, keine Überraschung.
           </p>
           <div className="mt-10">
             <TaxOffers />

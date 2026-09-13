@@ -15,6 +15,9 @@ export function ContactForm() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // Mehrfaches Absenden während eines laufenden Requests verhindern
+    if (status === 'sending') return;
+
     const form = new FormData(event.currentTarget);
 
     const payload = {
@@ -51,8 +54,15 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(parsed.data),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data?.message ?? 'Die Anfrage konnte nicht gesendet werden.');
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(
+          data?.message ??
+            'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.',
+        );
+      }
+
       setDelivered(data?.delivered !== false);
       setStatus('success');
     } catch (e) {
@@ -182,13 +192,20 @@ export function ContactForm() {
         {err('consent')}
       </div>
 
-      {serverError && (
-        <p role="alert" className="mt-5 border-l-2 border-blue pl-3 text-[0.9rem] text-ink">
-          {serverError}
-        </p>
-      )}
+      <div aria-live="polite">
+        {serverError && (
+          <p role="alert" className="mt-5 border-l-2 border-blue pl-3 text-[0.9rem] text-ink">
+            {serverError}
+          </p>
+        )}
+      </div>
 
-      <button type="submit" disabled={status === 'sending'} className="btn-primary mt-7 disabled:opacity-60">
+      <button
+        type="submit"
+        disabled={status === 'sending'}
+        aria-busy={status === 'sending'}
+        className="btn-primary mt-7 disabled:cursor-not-allowed disabled:opacity-60"
+      >
         {status === 'sending' ? (
           <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
         ) : (

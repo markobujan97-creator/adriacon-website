@@ -239,7 +239,7 @@ export function PaketFinder() {
                 <p className="mt-6 text-[0.78rem] leading-relaxed text-ink-light">
                   {result.kind === 'tax'
                     ? 'Pauschalpreis pro Steuerjahr. Bei aussergewöhnlich komplexen Verhältnissen informieren wir Sie vorab über allfällige Mehrkosten.'
-                    : 'Unverbindliche Orientierung, keine Offerte. Den definitiven Preis legen wir nach einem kurzen Gespräch fest. Es fällt keine MWST an.'}
+                    : 'Unverbindliche Orientierung, keine Offerte. Den definitiven Preis legen wir nach einem kurzen Gespräch fest.'}
                 </p>
               </>
             ) : (

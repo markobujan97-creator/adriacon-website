@@ -354,33 +354,18 @@ herunter und ersetzen Sie den Button in `components/tools/MySteuerhelfer.tsx`.
 
 ## 11a. Mehrwertsteuer
 
-Die Adriacon Treuhand GmbH ist **nicht mehrwertsteuerpflichtig** (Jahresumsatz
-unter CHF 100'000). Alle Preise auf der Website sind deshalb Endpreise.
+Auf der Website wird die eigene MWST-Situation **nirgends erwähnt**. Es steht
+weder «exklusive MWST» noch «keine MWST» bei irgendeinem Preis. Die Preise
+werden schlicht als Preise angegeben.
 
-Im Code ist das an einer Stelle hinterlegt:
+Falls sich das ändert und MWST ausgewiesen werden muss, betrifft das folgende
+Stellen: `config/pricing.ts` (`priceDisclaimer`, `taxPriceNote`),
+`components/home/PackagesTeaser.tsx`, `components/tools/PaketFinder.tsx`,
+`app/pakete/page.tsx` und `config/seo.ts` (Beschreibung der Paketeseite).
 
-```ts
-// config/pricing.ts
-vatLiable: false,
-
-export const vatNote =
-  'Adriacon ist nicht mehrwertsteuerpflichtig. Auf unsere Honorare fällt keine MWST an …';
-```
-
-`vatNote` erscheint überall dort, wo Preise stehen – auf der Paketeseite und bei
-den Steuerangeboten. Sämtliche früheren Formulierungen „exklusive MWST" wurden
-entfernt.
-
-**Wichtig zur Abgrenzung:** Betroffen ist ausschliesslich die eigene
-Rechnungsstellung. **MWST bleibt als Dienstleistung für Kundinnen und Kunden
-bestehen** – MWST-Abrechnungen, die Wahl zwischen Saldosteuersatz und effektiver
-Methode, der Zuschlag von CHF 60.– für die effektive Abrechnung sowie die
-MWST-Anmeldung bei der Firmengründung. Sollte auch das entfallen, genügt ein
-Hinweis; die betroffenen Stellen sind `config/pricing.ts`, `config/content.ts`
-und `lib/jahreskurs.ts`.
-
-Sobald der Umsatz die Schwelle überschreitet: `vatLiable` auf `true` setzen,
-`vatNote` anpassen und die Preisangaben um „exkl. MWST" ergänzen.
+**Davon unberührt:** MWST bleibt als Dienstleistung für Kundinnen und Kunden
+bestehen – MWST-Abrechnungen, Saldosteuersatz und effektive Methode, der
+Zuschlag von CHF 60.– und die MWST-Anmeldung bei der Firmengründung.
 
 ---
 
@@ -389,6 +374,8 @@ Sobald der Umsatz die Schwelle überschreitet: `vatLiable` auf `true` setzen,
 | Was | Datei |
 |---|---|
 | Adresse, Telefon, E-Mail, Öffnungszeiten, Navigation, Koordinaten | `config/site.ts` |
+| Handelsregisterangaben (UID, CH-ID, EHRA-ID, Sitz) | `config/site.ts`, Export `company` |
+| Stand der Rechtstexte | `config/site.ts`, `legalUpdated` |
 | Leistungen, Stufen, Werte, Team, FAQ, Steuer-FAQ | `config/content.ts` |
 | Unternehmenspakete und Steuerpreise | `config/pricing.ts` |
 | Checkliste | `config/tax-checklist.json` |
@@ -740,22 +727,36 @@ grep -rn "TODO" app components config lib
    kommerzielle Nutzung – oder eine eigene Zeichnung. Die Umstellung wäre
    einfach: neue Vorlage ablegen, `prepare-rope-assets.py` ausführen.
 7. **SVG-Logo und Favicon** – siehe Abschnitt 13.
-8. **MWST als Kundenleistung** – bitte bestätigen, dass MWST-Abrechnungen für
-   Kundinnen und Kunden weiterhin angeboten werden. Siehe Abschnitt 11a.
+8. **Telefonnummer in der Datenschutzerklärung** – Ihre Textvorlage nannte
+   +41 76 680 40 08, auf der Website steht überall +41 76 541 40 08. Ich habe
+   die Nummer der Website verwendet, damit der Auftritt einheitlich bleibt.
+   Bitte bestätigen, welche Nummer richtig ist (`config/site.ts`, `phone`).
 
 ### Rechtlich zu prüfen
 
 | Ort | Was |
 |---|---|
-| `app/impressum/page.tsx` | UID-Nummer, MWST-Nummer, Handelsregistereintrag, Haftungsklauseln |
-| `app/datenschutz/page.tsx` | Verantwortliche Stelle, Aufbewahrungsdauer, Dienstleisterliste |
+| `app/impressum/page.tsx` | Vollständig ausgefüllt mit den Handelsregisterdaten. Haftungs- und Urheberrechtsklauseln durch eine Fachperson bestätigen lassen. |
+| `app/datenschutz/page.tsx` | Vollständig ausformuliert nach Ihrer Vorlage, ohne Platzhalter. Inhalt vor dem Aufschalten bestätigen lassen. |
 | Steuerpreise | Hinweis auf mögliche Mehrkosten bei komplexen Verhältnissen |
 | Checkliste und PDF | Hinweis „allgemeine Orientierung, keine Beratung" ist gesetzt |
 | Paketfinder | Hinweis „unverbindliche Orientierung, keine Offerte" ist gesetzt |
 | Jahreskurs | Bewusst ohne konkrete Fristen, mit Hinweis auf kantonale Abweichungen |
 
-Impressum und Datenschutzerklärung sind Vorlagen mit sichtbaren
-`[TODO: …]`-Platzhaltern, die vor dem Aufschalten ersetzt werden müssen.
+Impressum und Datenschutzerklärung enthalten **keine Platzhalter mehr**. Die
+Handelsregisterangaben stammen aus dem Eintrag beim Handelsregisteramt des
+Kantons Aargau:
+
+| Feld | Wert |
+|---|---|
+| Rechtsform | Gesellschaft mit beschränkter Haftung (GmbH) |
+| Sitz | Baden |
+| UID | CHE-375.188.509 |
+| CH-ID | CH-400-4457396-2 |
+| EHRA-ID | 1711555 |
+
+Diese Werte stehen in `config/site.ts` unter `company` und sollten nur nach
+ausdrücklicher Vorgabe geändert werden.
 
 ### Bewusst nicht erfunden
 

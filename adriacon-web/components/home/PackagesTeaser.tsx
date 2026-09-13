@@ -38,7 +38,7 @@ export function PackagesTeaser() {
         </ul>
 
         <p className="mt-8 text-[0.85rem] text-ink-light">
-          Ab-Preise bei digitalem Belegfluss. Es fällt keine MWST an.
+          Ab-Preise bei digitalem Belegfluss.
         </p>
       </div>
     </section>

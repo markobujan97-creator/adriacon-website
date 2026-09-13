@@ -104,7 +104,7 @@ export const seo: Record<string, PageSeo> = {
     path: '/pakete',
     title: 'Treuhand-Pakete und Preise für KMU – ab CHF 320.– pro Monat',
     description:
-      'Transparente Treuhandpakete für KMU, Start-ups und Einzelfirmen im Aargau und Zürich: Buchhaltung, Lohnwesen, Jahresabschluss und Steuern ab CHF 320.– pro Monat. Keine MWST, keine versteckten Kosten.',
+      'Transparente Treuhandpakete für KMU, Start-ups und Einzelfirmen im Aargau und Zürich: Buchhaltung, Lohnwesen, Jahresabschluss und Steuern ab CHF 320.– pro Monat. Transparent und ohne versteckte Kosten.',
     keywords: [
       ...baseKeywords,
       'Treuhand Preise Schweiz',

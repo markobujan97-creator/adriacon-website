@@ -142,7 +142,7 @@ export const faqs = [
   },
   {
     q: 'Was bedeutet «ab CHF»?',
-    a: 'Das ist der Grundpreis eines Pakets bei digitalem Belegfluss und den enthaltenen Mengen. Zusätzliche Belege, Bankkonten oder Lohnempfänger sind als Zuschläge ausgewiesen. Auf unsere Honorare fällt keine MWST an, da wir nicht mehrwertsteuerpflichtig sind.',
+    a: 'Das ist der Grundpreis eines Pakets bei digitalem Belegfluss und den enthaltenen Mengen. Zusätzliche Belege, Bankkonten oder Lohnempfänger sind als Zuschläge ausgewiesen – Sie sehen also vorher, was dazukommen kann.',
   },
   {
     q: 'Kann die Zusammenarbeit vollständig digital erfolgen?',

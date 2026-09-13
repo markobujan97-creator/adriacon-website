@@ -121,7 +121,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="shell flex flex-col gap-3 py-6 text-xs text-sky-light/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.name}. Alle Preise ohne MWST – wir sind nicht mehrwertsteuerpflichtig.
+            © {year} {site.name}. Alle Rechte vorbehalten.
           </p>
           <ul className="flex gap-6">
             <li>

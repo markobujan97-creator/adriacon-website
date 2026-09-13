@@ -7,6 +7,13 @@ const nextConfig = {
   },
 
   /**
+   * Es ist bewusst keine Rewrite-Regel konfiguriert.
+   * Die API-Route /api/kontakt läuft in derselben Next.js-Anwendung auf Vercel
+   * und ist dort ohne Zusatzkonfiguration erreichbar. Eine Rewrite würde den
+   * Aufruf nur unnötig umleiten.
+   */
+
+  /**
    * Dauerhafte Weiterleitungen von den Adressen der bisherigen WordPress-Website.
    * Sie erhalten die bestehenden Google-Rankings und verhindern 404-Fehler,
    * sobald die neue Website unter derselben Domain läuft.

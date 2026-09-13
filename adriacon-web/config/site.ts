@@ -29,6 +29,8 @@ export const site = {
    * als Geo-Angabe in den strukturierten Daten.
    */
   coordinates: '47.4487° N · 8.2927° O',
+  /** Stand der Rechtstexte. Bei inhaltlichen Änderungen anpassen. */
+  legalUpdated: '15. Januar 2026',
   geo: { lat: 47.4487302, lng: 8.2927201 },
 } as const;
 
@@ -45,6 +47,19 @@ export const mySteuerhelfer = {
   appStoreUrl: 'https://apps.apple.com/au/app/mysteuerhelfer/id6758463921',
   webAppUrl: 'https://steuererklarungs-helfer-0819f95c.base44.app/',
   platforms: 'Als App für iOS und als Webversion im Browser.',
+} as const;
+
+/**
+ * Handelsregisterangaben gemäss Eintrag im Handelsregister des Kantons Aargau.
+ * Diese Werte nur nach ausdrücklicher Vorgabe ändern.
+ */
+export const company = {
+  legalForm: 'Gesellschaft mit beschränkter Haftung (GmbH)',
+  domicile: 'Baden',
+  registryOffice: 'Handelsregisteramt des Kantons Aargau',
+  uid: 'CHE-375.188.509',
+  chId: 'CH-400-4457396-2',
+  ehraId: '1711555',
 } as const;
 
 /**

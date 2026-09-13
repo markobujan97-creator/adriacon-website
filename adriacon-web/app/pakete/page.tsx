@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { PackageGrid } from '@/components/packages/PackageGrid';
 import { CtaBand } from '@/components/ui/CtaBand';
-import { priceDisclaimer, pricingConfig, vatNote } from '@/config/pricing';
+import { priceDisclaimer, pricingConfig } from '@/config/pricing';
 import { formatChf } from '@/lib/format';
 
 export const metadata: Metadata = metadataFor('pakete');
@@ -23,10 +23,9 @@ export default function PaketePage() {
         <div className="shell">
           <PackageGrid />
 
-          <div className="mt-8 max-w-2xl space-y-2">
-            <p className="text-[0.85rem] leading-relaxed text-ink-light">{priceDisclaimer}</p>
-            <p className="text-[0.85rem] leading-relaxed text-ink-light">{vatNote}</p>
-          </div>
+          <p className="mt-8 max-w-2xl text-[0.85rem] leading-relaxed text-ink-light">
+            {priceDisclaimer}
+          </p>
         </div>
       </section>
 

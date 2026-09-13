@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { taxOffers, taxPriceNote, vatNote } from '@/config/pricing';
+import { taxOffers, taxPriceNote } from '@/config/pricing';
 import { mySteuerhelfer } from '@/config/site';
 import { formatChf } from '@/lib/format';
 
@@ -49,10 +49,7 @@ export function TaxOffers({ showCta = true }: { showCta?: boolean }) {
         ))}
       </ul>
 
-      <div className="mt-6 max-w-3xl space-y-2">
-        <p className="text-[0.85rem] leading-relaxed text-ink-light">{taxPriceNote}</p>
-        <p className="text-[0.85rem] leading-relaxed text-ink-light">{vatNote}</p>
-      </div>
+      <p className="mt-6 max-w-3xl text-[0.85rem] leading-relaxed text-ink-light">{taxPriceNote}</p>
     </div>
   );
 }

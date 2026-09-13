@@ -1,18 +1,11 @@
 /**
  * Zentrale Preis- und Paketkonfiguration der Adriacon Treuhand GmbH.
  * Einzige Quelle der Wahrheit für alle Preise auf der Website.
- * Alle Beträge in CHF. Adriacon ist nicht mehrwertsteuerpflichtig,
- * die Preise sind Endpreise. Stand: Preisliste 2026.
+ * Alle Beträge in CHF. Stand: Preisliste 2026.
  */
 
 export const pricingConfig = {
   currency: 'CHF',
-  /**
-   * Die Adriacon Treuhand GmbH ist nicht mehrwertsteuerpflichtig
-   * (Jahresumsatz unter CHF 100'000). Auf den Honoraren wird keine MWST
-   * erhoben, alle Preise auf dieser Website sind Endpreise.
-   */
-  vatLiable: false,
 
   /** Stundensatz für Arbeiten ausserhalb des vereinbarten Leistungsumfangs. */
   generalHourlyRate: 119,
@@ -301,9 +294,6 @@ export const taxPriceNote =
 export const priceDisclaimer =
   'Es handelt sich um Ab-Preise bei digitalem Belegfluss. Der definitive Preis richtet sich nach dem tatsächlichen Leistungsumfang und wird nach einer persönlichen Prüfung festgelegt.';
 
-/** Hinweis zur eigenen MWST-Situation. Erscheint überall dort, wo Preise stehen. */
-export const vatNote =
-  'Adriacon ist nicht mehrwertsteuerpflichtig. Auf unsere Honorare fällt keine MWST an – Sie zahlen genau den genannten Betrag.';
 
 export const cfoRedirectMessage =
   'Die CFO-Begleitung ist eine Erweiterung für bestehende Adriacon-Mandate. Für den Einstieg empfehlen wir zunächst eine persönliche Standortbestimmung.';
