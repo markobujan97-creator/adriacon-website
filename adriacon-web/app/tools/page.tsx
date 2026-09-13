@@ -73,7 +73,7 @@ export default function ToolsPage() {
         <div className="shell">
           <header className="max-w-2xl">
             <p className="label">Für Unternehmen</p>
-            <h2 className="mt-4 text-d2">Paketfinder</h2>
+            <h2 className="mt-4 text-d2">Paketfinder: Treuhand-Kosten für Ihr KMU berechnen</h2>
             <p className="mt-5 lead">
               Wenige Fragen, eine Empfehlung. Die erste Frage trennt Unternehmen und private
               Steuererklärungen – die beiden Bereiche werden nie vermischt.
@@ -113,7 +113,7 @@ export default function ToolsPage() {
         <div className="shell">
           <header className="max-w-2xl">
             <p className="label">Für Unternehmen</p>
-            <h2 className="mt-4 text-d2">Jahreskurs</h2>
+            <h2 className="mt-4 text-d2">Jahreskurs: administrative Termine im Geschäftsjahr</h2>
             <p className="mt-5 lead">
               Welche administrativen Themen wann anstehen. Als Orientierung, nicht als
               Fristenkalender.
@@ -130,7 +130,7 @@ export default function ToolsPage() {
         <div className="shell">
           <header className="max-w-2xl">
             <p className="label">Unsere App</p>
-            <h2 className="mt-4 text-d2">MySteuerhelfer</h2>
+            <h2 className="mt-4 text-d2">MySteuerhelfer: Steuerunterlagen digital einreichen</h2>
             <p className="mt-5 lead">
               Von Adriacon entwickelt, für alle nutzbar. Unterlagen fotografieren, hochladen,
               fertig.

@@ -12,8 +12,8 @@ export function CtaBand({
 }) {
   return (
     <section className="relative overflow-hidden bg-navy text-white">
-      <RopeLine tone="dark" className="absolute inset-x-0 bottom-0 opacity-55" knotWidth={230} />
-      <div className="shell relative pb-40 pt-block">
+      <RopeLine tone="dark" className="absolute inset-x-0 bottom-0" height={78} />
+      <div className="shell relative pb-32 pt-block">
         <div className="max-w-xl">
           <h2 className="text-d2 !text-white">{title}</h2>
           <p className="mt-5 text-[1.05rem] leading-relaxed text-sky-light">{text}</p>

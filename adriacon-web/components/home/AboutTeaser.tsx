@@ -22,7 +22,7 @@ export function AboutTeaser() {
 
         <Reveal delay={0.08} className="lg:col-span-6">
           <p className="label">Über uns</p>
-          <h2 className="mt-4 text-d2">Zwei Geschäftsführer. Keine Warteschlange.</h2>
+          <h2 className="mt-4 text-d2">Ihr Treuhandbüro in Baden-Dättwil</h2>
           <p className="mt-5 lead">
             Adriacon Treuhand ist ein junges Treuhandunternehmen mit Sitz in Baden-Dättwil. Wir haben
             es gegründet, weil wir Treuhand anders erleben wollten: verständlich erklärt, digital

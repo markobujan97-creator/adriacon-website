@@ -11,7 +11,7 @@ export function PackagesTeaser() {
       <div className="shell">
         <SectionIntro
           label="Pakete"
-          title="Fünf Pakete. Ein Preis, den Sie vorher kennen."
+          title="Treuhand-Pakete für KMU ab CHF 320.– pro Monat"
           lead="Kein Stundenzettel am Monatsende. Sie wählen ein Paket, wir halten uns daran."
         />
 

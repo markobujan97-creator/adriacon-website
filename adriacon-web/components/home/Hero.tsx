@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { CourseGraphic } from '@/components/ui/CourseGraphic';
+import { seo } from '@/config/seo';
 
 export function Hero() {
   return (
@@ -15,16 +16,20 @@ export function Hero() {
         <div className="lg:col-span-6">
           <p className="label !text-sky">Treuhand in Baden-Dättwil</p>
 
-          <h1 className="mt-5 text-d1 !text-white">
+          {/*
+            Der Leitsatz bleibt optisch die grösste Aussage, ist im Markup aber
+            bewusst keine Überschrift. Die H1 steht direkt darunter und trägt die
+            Suchbegriffe – siehe config/seo.ts.
+          */}
+          <p className="mt-5 font-display text-d1 font-medium text-white">
             Wir halten Sie
             <br />
             <span className="text-sky">auf Kurs.</span>
-          </h1>
+          </p>
 
-          {/* Zweite Ebene mit den tragenden Suchbegriffen der bestehenden Website */}
-          <h2 className="mt-6 max-w-text font-display text-[1.15rem] font-normal leading-snug !text-white sm:text-[1.3rem]">
-            Adriacon Treuhand GmbH – Treuhand, Buchhaltung und Steuern im Raum Aargau und Zürich
-          </h2>
+          <h1 className="mt-6 max-w-text font-display text-[1.15rem] font-normal leading-snug !text-white sm:text-[1.3rem]">
+            {seo.home.h1}
+          </h1>
 
           <p className="mt-5 max-w-text text-[1.06rem] leading-relaxed text-sky-light">
             Wir unterstützen Sie in Treuhand, Buchhaltung, Jahresabschlüssen und Steuern –

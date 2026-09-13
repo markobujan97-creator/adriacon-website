@@ -40,7 +40,7 @@ export function ToolsTeaser() {
       <div className="shell">
         <SectionIntro
           label="Tools"
-          title="Werkzeuge, die Ihnen jetzt schon helfen."
+          title="Treuhand-Kosten berechnen und Steuererklärung starten"
           lead="Kostenlos, ohne Anmeldung und ohne dass Sie uns Ihre Daten geben müssen."
         />
 

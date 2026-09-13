@@ -54,15 +54,19 @@ export default function SteuererklaerungenPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line bg-shell">
-        <RopeLine tone="shell" className="absolute inset-x-0 bottom-0 opacity-70" knotWidth={210} />
-        <div className="shell relative pb-36 pt-14 lg:pb-40 lg:pt-20">
+        <RopeLine tone="light" className="absolute inset-x-0 bottom-0" height={72} />
+        <div className="shell relative pb-28 pt-14 lg:pb-32 lg:pt-20">
           <p className="label">Für Privatpersonen</p>
-          <h1 className="mt-4 max-w-3xl text-d1">
+          {/* Optisch die grösste Aussage, im Markup bewusst keine Überschrift */}
+          <p className="mt-4 max-w-3xl font-display text-d1 font-medium text-navy">
             Steuererklärung ausfüllen lassen.
             <br />
             <span className="text-blue">Ohne Papierstapel.</span>
+          </p>
+          <h1 className="mt-6 max-w-3xl font-display text-[1.15rem] font-normal leading-snug text-navy sm:text-[1.3rem]">
+            {seo.steuererklaerungen.h1}
           </h1>
-          <p className="mt-6 max-w-text lead">
+          <p className="mt-5 max-w-text lead">
             Für Privatpersonen, Paare, Studierende und Selbstständige im Aargau, in Zürich und in
             der ganzen Schweiz. Unterlagen digital einreichen, von uns persönlich prüfen lassen,
             termingerecht eingereicht – zu einem Pauschalpreis, den Sie vorher kennen.
@@ -96,7 +100,7 @@ export default function SteuererklaerungenPage() {
       {/* Für wen */}
       <section className="py-block">
         <div className="shell">
-          <h2 className="text-d2">Für wen wir das machen</h2>
+          <h2 className="text-d2">Steuererklärung für Privatpersonen, Paare, Studierende und Selbstständige</h2>
           <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
             {audiences.map((item, i) => (
               <Reveal as="li" key={item.title} delay={i * 0.06}>
@@ -114,7 +118,7 @@ export default function SteuererklaerungenPage() {
       {/* Preise */}
       <section id="preise" className="scroll-mt-24 bg-shell py-block">
         <div className="shell">
-          <h2 className="text-d2">Preise</h2>
+          <h2 className="text-d2">Preise für die Steuererklärung</h2>
           <p className="mt-5 max-w-text lead">
             Ein Pauschalpreis pro Steuerjahr. Keine Stundenabrechnung, keine MWST, keine
             Überraschung.
@@ -129,7 +133,7 @@ export default function SteuererklaerungenPage() {
       <section className="py-block">
         <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <h2 className="text-d2">So läuft es ab</h2>
+            <h2 className="text-d2">So läuft Ihre Steuererklärung ab</h2>
             <p className="mt-5 lead">Vier Schritte. Den grössten Teil übernehmen wir.</p>
           </div>
           <ol className="lg:col-span-8">
@@ -181,7 +185,7 @@ export default function SteuererklaerungenPage() {
       {/* FAQ */}
       <section className="bg-shell py-block">
         <div className="shell">
-          <h2 className="text-d2">Häufige Fragen</h2>
+          <h2 className="text-d2">Häufige Fragen zur Steuererklärung</h2>
           <div className="mt-10 grid gap-x-14 lg:grid-cols-2">
             {[taxFaqs.slice(0, Math.ceil(taxFaqs.length / 2)), taxFaqs.slice(Math.ceil(taxFaqs.length / 2))].map(
               (column, ci) => (
@@ -209,8 +213,8 @@ export default function SteuererklaerungenPage() {
 
       {/* Einreichen */}
       <section className="relative overflow-hidden bg-navy text-white">
-        <RopeLine tone="dark" className="absolute inset-x-0 bottom-0 opacity-55" knotWidth={230} />
-        <div className="shell relative pb-40 pt-block">
+        <RopeLine tone="dark" className="absolute inset-x-0 bottom-0" height={78} />
+        <div className="shell relative pb-32 pt-block">
           <div className="max-w-xl">
             <h2 className="text-d2 !text-white">Bereit? Dann los.</h2>
             <p className="mt-5 text-[1.05rem] leading-relaxed text-sky-light">

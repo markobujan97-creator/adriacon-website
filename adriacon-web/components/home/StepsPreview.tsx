@@ -18,7 +18,7 @@ export function StepsPreview() {
       <div className="shell">
         <SectionIntro
           label="So arbeiten wir"
-          title="Von der ersten Frage bis zur laufenden Zusammenarbeit."
+          title="So läuft die Zusammenarbeit mit Ihrem Treuhänder"
           lead="Sie schreiben oder rufen an. Innerhalb eines Arbeitstages melden wir uns und schlagen einen Termin vor."
         />
 

@@ -33,7 +33,7 @@ export default function PaketePage() {
       <section className="bg-shell py-block">
         <div className="shell grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h2 className="text-d3">Was zusätzlich verrechnet wird</h2>
+            <h2 className="text-d3">Zuschläge: was zusätzlich verrechnet wird</h2>
             <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-soft">
               Die Grundpreise gelten für die enthaltenen Mengen bei digitalem Belegfluss. Was darüber
               hinausgeht, ist hier aufgeführt – damit am Monatsende keine Überraschung steht.

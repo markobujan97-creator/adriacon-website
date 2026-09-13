@@ -421,6 +421,12 @@ benennen** und die alte überschreiben.
 | `team/marko-bujan.jpg` | Porträt Marko Bujan | Über uns |
 | `team/adriacon-team-buero.jpg` | Büroaufnahme | Startseite, Über uns |
 | `images/mysteuerhelfer-app.png` | App-Ansicht | Steuererklärungen, Tools |
+| `images/seil-knoten-dunkel.png` | Knoten in Navy | Seitenköpfe |
+| `images/seil-strang-dunkel.png` | Seilkachel links, Navy | Seitenköpfe |
+| `images/seil-strang-rechts-dunkel.png` | Seilkachel rechts, Navy | Seitenköpfe |
+| `images/seil-knoten-hell.png` | Knoten in Hellblau | CTA-Band |
+| `images/seil-strang-hell.png` | Seilkachel links, hell | CTA-Band |
+| `images/seil-strang-rechts-hell.png` | Seilkachel rechts, hell | CTA-Band |
 | `downloads/adriacon-checkliste-steuererklaerung.pdf` | Checkliste | Download-Buttons |
 
 Das Büro-Teamfoto wird **vollständig ohne Zuschnitt** dargestellt, damit beide
@@ -470,12 +476,39 @@ folgen demselben Muster aus Leistung und Region, mit den Preisen als Anker:
 
 ### Überschriftenhierarchie
 
-Jede Seite hat **genau eine H1**, danach H2 für Abschnitte und H3 für Einträge.
+**Grundsatz: Die Überschriften folgen den Suchbegriffen, nicht der Gestaltung.**
 
-Auf der Startseite bleibt die H1 der Leitsatz **„Wir halten Sie auf Kurs."**
-Damit die Suchbegriffe trotzdem prominent stehen, folgt unmittelbar darunter
-eine sichtbare H2:
-„Adriacon Treuhand GmbH – Treuhand, Buchhaltung und Steuern im Raum Aargau und Zürich".
+Jede Seite hat genau eine H1, danach H2 für Abschnitte und H3 für Einträge.
+Die H1 enthält immer die tragende Leistung und, wo sinnvoll, die Region:
+
+| Seite | H1 |
+|---|---|
+| `/` | Adriacon Treuhand GmbH – Treuhand, Buchhaltung und Steuern im Raum Aargau und Zürich |
+| `/leistungen` | Steuererklärung und weitere Treuhand-Dienstleistungen im Raum Aargau und Zürich |
+| `/pakete` | Treuhand-Pakete und Preise für KMU in Aargau und Zürich |
+| `/steuererklaerungen` | Steuererklärung ausfüllen lassen – Aargau, Zürich und Schweiz |
+| `/tools` | Treuhand-Rechner: Kosten für Buchhaltung und Steuererklärung berechnen |
+| `/ueber-uns` | Über uns – Ihr KMU-Treuhand-Partner im Aargau und in der Schweiz |
+| `/kontakt` | Kontakt – Treuhand und Steuerberatung in Baden-Dättwil, Aargau |
+
+Alle H1 stehen in `config/seo.ts` und werden von dort in die Seiten gezogen –
+Sie ändern sie also an einer einzigen Stelle.
+
+**Gestaltung und Markup laufen dabei auseinander, und das ist Absicht.**
+Auf der Startseite bleibt „Wir halten Sie auf Kurs." optisch die grösste
+Aussage, im Markup ist sie aber ein Absatz (`<p>`) und keine Überschrift.
+Die H1 steht sichtbar direkt darunter. Dasselbe gilt auf der Steuerseite für
+„Steuererklärung ausfüllen lassen. Ohne Papierstapel."
+
+Eine Überschrift *vor* der H1 zu setzen (also etwa eine H2 über der H1) wäre
+technisch möglich, bricht aber die Reihenfolge der Ebenen. Ein Absatz erreicht
+dasselbe optische Ergebnis, ohne die Hierarchie zu stören. Wenn Sie dort
+trotzdem ein Überschriften-Tag möchten, ist das in `components/home/Hero.tsx`
+eine Änderung von einem Wort.
+
+Auch die Abschnittsüberschriften tragen Suchbegriffe, etwa
+„Treuhand-Pakete für KMU ab CHF 320.– pro Monat" statt „Fünf Pakete" oder
+„MySteuerhelfer: Steuerunterlagen digital einreichen" statt nur „MySteuerhelfer".
 
 ### Suchbegriffe
 
@@ -602,15 +635,29 @@ Server ausgeliefert. Beim Seitenbesuch entsteht keine Verbindung zu Google.
 - **Koordinaten** (`components/ui/Coordinates.tsx`): das Standortdetail
   `47.4658° N · 8.2624° O`, sparsam eingesetzt in Hero-Grafik, Footer,
   unter dem Bürofoto und im Abschlussbereich der Steuerseite.
-- **Bootsseil mit Palstek** (`components/ui/RopeLine.tsx`): das Seil läuft quer
-  durch den Abschnitt und endet rechts in einem Palstek mit hängender Schlaufe.
-  Eingesetzt in allen Seitenköpfen, im CTA-Band und auf der Steuerseite.
-  Technisch zweiteilig: das gerade Stück ist ein CSS-Verlauf und dehnt sich
-  verzerrungsfrei, der Knoten ist ein SVG mit festem Seitenverhältnis. Die
-  Über- und Unterführungen entstehen dadurch, dass jedes Seilstück zuerst in
-  der Hintergrundfarbe gezeichnet wird. Über `tone` wird die Hintergrundfarbe
-  des Abschnitts gesetzt (`light`, `shell` oder `dark`) – das ist wichtig,
-  sonst stimmen die Freistellungen nicht.
+- **Bootsseil mit Knoten** (`components/ui/RopeLine.tsx`): Das Seil läuft quer
+  durch den Abschnitt, der Knoten sitzt rechts. Eingesetzt in allen
+  Seitenköpfen, im CTA-Band und zweimal auf der Steuerseite.
+
+  Aufbau: `[ Kachel links, wiederholt ] [ Knoten ] [ Kachel rechts, wiederholt ]`.
+  Die linke Kachel wird rechtsbündig wiederholt, die rechte linksbündig – so
+  trifft an beiden Seiten des Knotens eine vollständige Kachel auf ihn, genau
+  wie die Stücke in der Vorlage aneinandergrenzen. Deshalb ist keine Naht
+  sichtbar, egal wie breit der Bildschirm ist.
+
+  Über `tone` wird der Hintergrund angegeben: `light` zeichnet das Seil in Navy
+  (helle Abschnitte), `dark` in Hellblau (dunkler Abschluss-Abschnitt).
+
+  Die sechs Bilder werden aus einer einzigen Vorlage erzeugt:
+
+  ```bash
+  pip install pillow numpy
+  python3 scripts/prepare-rope-assets.py
+  ```
+
+  Vorlage: `scripts/seilknoten-original.png`. Wird sie ersetzt, müssen im Skript
+  die Zuschnittwerte `Y0`, `Y1`, `L`, `R` und `P` neu bestimmt werden.
+
 - **Ansteigende Etappen** auf der Startseite: die fünf Stufen versetzen sich auf
   grossen Bildschirmen tatsächlich nach oben – Layout statt Ornament.
 
@@ -687,8 +734,13 @@ grep -rn "TODO" app components config lib
    Ich gehe davon aus, dass die App **MySteuerhelfer** gemeint ist. Bitte bestätigen.
 5. **301-Weiterleitungen von den alten WordPress-Adressen** sind in
    `next.config.mjs` eingerichtet – nach dem Umzug einmal stichprobenweise prüfen.
-6. **SVG-Logo und Favicon** – siehe Abschnitt 13.
-7. **MWST als Kundenleistung** – bitte bestätigen, dass MWST-Abrechnungen für
+6. **Bildrechte für die Knoten-Vorlage klären.** Die Vorlage unter
+   `scripts/seilknoten-original.png` stammt nicht von Adriacon. Wenn sie von
+   einer Bilddatenbank kommt, braucht es vor dem Aufschalten eine Lizenz für die
+   kommerzielle Nutzung – oder eine eigene Zeichnung. Die Umstellung wäre
+   einfach: neue Vorlage ablegen, `prepare-rope-assets.py` ausführen.
+7. **SVG-Logo und Favicon** – siehe Abschnitt 13.
+8. **MWST als Kundenleistung** – bitte bestätigen, dass MWST-Abrechnungen für
    Kundinnen und Kunden weiterhin angeboten werden. Siehe Abschnitt 11a.
 
 ### Rechtlich zu prüfen

@@ -14,7 +14,7 @@ export function ServicesOverview() {
       <div className="shell">
         <SectionIntro
           label="Leistungen"
-          title="Der Kern ist Treuhand."
+          title="Treuhand, Buchhaltung und Steuern aus einer Hand"
           lead="Buchhaltung, Steuern, MWST und Lohn machen wir selbst. Gründung und Unternehmensentwicklung begleiten wir. Alles Weitere koordinieren wir über unser Netzwerk."
         />
 

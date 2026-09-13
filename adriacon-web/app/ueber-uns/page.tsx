@@ -60,7 +60,7 @@ export default function UeberUnsPage() {
       {/* Team */}
       <section className="bg-shell py-block">
         <div className="shell">
-          <h2 className="text-d2">Die Geschäftsführer</h2>
+          <h2 className="text-d2">Die Geschäftsführer Ihrer Treuhand</h2>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2">
             {team.map((person, i) => (
@@ -143,7 +143,7 @@ export default function UeberUnsPage() {
       <section className="bg-shell py-block">
         <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <h2 className="text-d2">So läuft eine Zusammenarbeit an</h2>
+            <h2 className="text-d2">So läuft die Zusammenarbeit mit Adriacon Treuhand an</h2>
             <p className="mt-5 lead">
               Fünf Stufen von der ersten Frage bis zur eingespielten Zusammenarbeit.
             </p>

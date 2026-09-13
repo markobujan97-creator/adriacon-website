@@ -3,6 +3,11 @@ import { site } from './site';
 /**
  * SEO-Angaben für alle Seiten.
  *
+ * Die H1 jeder Seite wird nach Suchbegriffen gesetzt, nicht nach Gestaltung.
+ * Sie enthält deshalb immer die tragende Leistung und, wo sinnvoll, die Region.
+ * Gestalterisch hervorgehobene Sätze wie der Leitsatz «Wir halten Sie auf Kurs.»
+ * bleiben optisch gross, sind im Markup aber bewusst keine Überschrift.
+ *
  * Titel und Beschreibungen der Seiten Leistungen, Über uns und Kontakt sind
  * unverändert von der bestehenden Website adriacon.ch übernommen, damit die
  * dort erarbeiteten Rankings erhalten bleiben. Die neuen Seiten folgen
@@ -64,7 +69,7 @@ export const seo: Record<string, PageSeo> = {
       'Treuhand für Start-ups',
       'Treuhand für Einzelfirmen',
     ],
-    h1: 'Wir halten Sie auf Kurs.',
+    h1: 'Adriacon Treuhand GmbH – Treuhand, Buchhaltung und Steuern im Raum Aargau und Zürich',
     breadcrumb: 'Startseite',
   },
 
@@ -111,7 +116,7 @@ export const seo: Record<string, PageSeo> = {
       'Firmengründung GmbH Kosten',
       'CFO Dienstleistung KMU',
     ],
-    h1: 'Treuhand-Pakete für KMU – ein Preis, den Sie vorher kennen',
+    h1: 'Treuhand-Pakete und Preise für KMU in Aargau und Zürich',
     breadcrumb: 'Pakete',
   },
 
@@ -135,7 +140,7 @@ export const seo: Record<string, PageSeo> = {
       'Steuerberatung Aargau',
       'MySteuerhelfer App',
     ],
-    h1: 'Steuererklärung ausfüllen lassen. Ohne Papierstapel.',
+    h1: 'Steuererklärung ausfüllen lassen – Aargau, Zürich und Schweiz',
     breadcrumb: 'Steuererklärungen',
   },
 
@@ -152,7 +157,7 @@ export const seo: Record<string, PageSeo> = {
       'Treuhand Offerte Schweiz',
       'MySteuerhelfer',
     ],
-    h1: 'Treuhand-Tools für KMU und Privatpersonen',
+    h1: 'Treuhand-Rechner: Kosten für Buchhaltung und Steuererklärung berechnen',
     breadcrumb: 'Tools',
   },
 
@@ -169,7 +174,7 @@ export const seo: Record<string, PageSeo> = {
       'Marko Bujan',
       'Treuhand Ansprechpartner Aargau',
     ],
-    h1: 'Über uns – Ihr Treuhand-Partner in der Schweiz',
+    h1: 'Über uns – Ihr KMU-Treuhand-Partner im Aargau und in der Schweiz',
     breadcrumb: 'Über uns',
   },
 
@@ -185,7 +190,7 @@ export const seo: Record<string, PageSeo> = {
       'Treuhandbüro in der Nähe',
       'Erstgespräch Treuhand',
     ],
-    h1: 'Kontakt – Treuhand für KMU und Privatpersonen',
+    h1: 'Kontakt – Treuhand und Steuerberatung in Baden-Dättwil, Aargau',
     breadcrumb: 'Kontakt',
   },
 };
