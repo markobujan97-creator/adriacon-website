@@ -64,8 +64,8 @@ export default function SteuererklaerungenPage() {
             <span className="text-blue">Ohne Papierstapel.</span>
           </p>
           <h1 className="mt-6 max-w-3xl font-display text-[1.15rem] font-normal leading-snug text-navy sm:text-[1.3rem]">
-            {seo.steuererklaerungen.h1}
-          </h1>
+  Steuererklärung ausfüllen lassen im Aargau, Zürich und der ganzen Schweiz
+</h1>
           <p className="mt-5 max-w-text lead">
             Für Privatpersonen, Paare, Studierende und Selbstständige im Aargau, in Zürich und in
             der ganzen Schweiz. Unterlagen digital einreichen, von uns persönlich prüfen lassen,
